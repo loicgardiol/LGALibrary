@@ -1,0 +1,1 @@
+PODS_TESTS_LGALIBRARY_OTHER_LDFLAGS = -framework Foundation -framework MapKit -framework UIKit

@@ -4,7 +4,7 @@ PODS:
     - Expecta
     - FBSnapshotTestCase
   - FBSnapshotTestCase (1.1)
-  - LGALibrary (0.1.0)
+  - LGALibrary (1.0.0)
   - Specta (0.2.1)
 
 DEPENDENCIES:
@@ -22,7 +22,7 @@ SPEC CHECKSUMS:
   Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
   Expecta+Snapshots: 30c28e3d8104665ee70e32df1cfc030bb37a8a6c
   FBSnapshotTestCase: 9053afee1d66b4c7c313fcb0ae582a5e47bea9d0
-  LGALibrary: c88f3faafa73e4d535806b0d91a9c85f4e89a095
+  LGALibrary: cc20ecc108ebd0312b63b5a4a5345e9f3740e119
   Specta: 9141310f46b1f68b676650ff2854e1ed0b74163a
 
 COCOAPODS: 0.33.1
