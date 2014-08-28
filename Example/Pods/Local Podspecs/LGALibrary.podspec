@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "LGALibrary"
-  s.version          = "1.0.0"
+  s.version          = "1.1.0"
   s.summary          = "A collection of utilities and categories."
   s.description      = <<-DESC
                         A collection of utilities and categories for iOS development.
@@ -29,5 +29,5 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
     s.frameworks = 'Foundation', 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+    s.dependency 'AFNetworking', '~> 2.3'
 end
