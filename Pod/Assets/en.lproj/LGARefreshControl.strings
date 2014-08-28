@@ -1,0 +1,11 @@
+/* 
+  LGRefreshControl.strings
+
+  Created by Loïc Gardiol on 24.06.13.
+  Copyright (c) 2013. All rights reserved.
+*/
+
+"LastUpdate" = "Last update";
+"LastUpdateNever" = "Last update: never";
+"LastUpdateJustNow" = "Updated just now";
+"Refreshing" = "Refreshing...";
