@@ -22,8 +22,6 @@
 
 //  Created by Loic Gardiol on 08/05/2014.
 
-@import UIKit;
-
-@interface LGAViewController : UIViewController
+@interface LGARefreshControlExampleTableViewController : UITableViewController
 
 @end
