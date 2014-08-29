@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Pod/Classes'
   s.resources = 'Pod/Assets/*'
-  s.resource_bundle = { 'LGALibrary' => ['Pod/Assets/*.lproj'] }
+  s.preserve_paths = "Pod/Assets/*.lproj"
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
     s.frameworks = 'Foundation', 'UIKit', 'MapKit'

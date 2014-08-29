@@ -91,7 +91,7 @@
 
 - (void)startRefreshing {
     if (self.showsDefaultRefreshingMessage) {
-        [self startRefreshingWithMessage:NSLocalizedStringFromTable(@"Refreshing", @"LGARefreshControl", nil)];
+        [self startRefreshingWithMessage:NSLocalizedStringFromTable(@"Refreshing", @"LGALibrary", nil)];
     } else {
         [self startRefreshingWithMessage:@""];
     }
@@ -180,11 +180,11 @@
 - (NSMutableAttributedString*)attributedTimeStringForLastRefresh {
     NSMutableAttributedString* attrString = nil;
     if (!self.lastSuccessfulRefreshDate) {
-        attrString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedStringFromTable(@"LastUpdateNever", @"LGARefreshControl", nil)];
+        attrString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedStringFromTable(@"LastUpdateNever", @"LGALibrary", nil)];
     } else if (fabs([self.lastSuccessfulRefreshDate timeIntervalSinceNow]) < 60.0) {
-        attrString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedStringFromTable(@"LastUpdateJustNow", @"LGARefreshControl", nil)];
+        attrString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedStringFromTable(@"LastUpdateJustNow", @"LGALibrary", nil)];
     } else {
-        NSString* lastUpdateLocalized = NSLocalizedStringFromTable(@"LastUpdate", @"LGARefreshControl", nil);
+        NSString* lastUpdateLocalized = NSLocalizedStringFromTable(@"LastUpdate", @"LGALibrary", nil);
         NSDateFormatter* dateFormatter = [NSDateFormatter new];
         dateFormatter.timeStyle = NSDateFormatterNoStyle;
         dateFormatter.dateStyle = NSDateFormatterShortStyle;
