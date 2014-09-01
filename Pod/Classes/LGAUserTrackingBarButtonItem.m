@@ -40,16 +40,27 @@
 #pragma mark - Init
 
 - (instancetype)initWithMapView:(MKMapView *)mapView {
-    CLAuthorizationStatus authStatus = [LGAUtils isOSVersionSmallerThan:8.0] ? kCLAuthorizationStatusAuthorizedAlways : kCLAuthorizationStatusAuthorizedWhenInUse;
+    
+    CLAuthorizationStatus authStatus;
+#ifdef __IPHONE_8_0
+    authStatus = [LGAUtils isOSVersionSmallerThan:8.0] ? kCLAuthorizationStatusAuthorized : kCLAuthorizationStatusAuthorizedWhenInUse;
+#else
+    authStatus = kCLAuthorizationStatusAuthorized;
+#endif
+    
     return [self initWithMapView:mapView requiredAuthorizationStatus:authStatus];
 }
 
 - (instancetype)initWithMapView:(MKMapView *)mapView requiredAuthorizationStatus:(CLAuthorizationStatus)requiredAuthStatus {
-    if (requiredAuthStatus != kCLAuthorizationStatusAuthorized
+#ifdef __IPHONE_8_0
+    if ([LGAUtils isOSVersionSmallerThan:8.0] && requiredAuthStatus != kCLAuthorizationStatusAuthorized
         && requiredAuthStatus != kCLAuthorizationStatusAuthorizedAlways
         && requiredAuthStatus != kCLAuthorizationStatusAuthorizedWhenInUse) {
         [NSException raise:@"Illegal argument" format:@"requiredAuthorizationStatus cannot only be kCLAuthorizationStatusAuthorized, kCLAuthorizationStatusAuthorizedAlways, or kCLAuthorizationStatusAuthorizedWhenInUse"];
     }
+#else
+    requiredAuthStatus = kCLAuthorizationStatusAuthorized;
+#endif
     self = [super initWithMapView:mapView];
     if (self) {
         self.requiredAuthStatus = requiredAuthStatus;
@@ -63,8 +74,6 @@
     return self;
 }
 
-
-//Private override
 - (void)selfTapped {
     CLAuthorizationStatus currentAuthStatus = [CLLocationManager authorizationStatus];
     if (currentAuthStatus == kCLAuthorizationStatusDenied || currentAuthStatus == kCLAuthorizationStatusRestricted) {
@@ -100,6 +109,7 @@
  * @return YES if auth request was necessary.
  */
 - (BOOL)requestAuthorizationIfNecessary {
+#ifdef __IPHONE_8_0
     if (self.requiredAuthStatus == kCLAuthorizationStatusAuthorized || self.requiredAuthStatus == kCLAuthorizationStatusAuthorizedAlways) {
         if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
             [self.locationManager requestAlwaysAuthorization];
@@ -111,6 +121,7 @@
             return YES;
         }
     }
+#endif
     return NO;
 }
 
