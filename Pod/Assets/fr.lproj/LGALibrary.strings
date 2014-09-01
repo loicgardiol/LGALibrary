@@ -1,4 +1,12 @@
+//Common
+"OK" = "OK";
+
+//LGARefreshControl
 "LastUpdate" = "Mis à jour";
 "LastUpdateNever" = "Denière mise à jour : jamais";
 "LastUpdateJustNow" = "Mis à jour à l'instant";
 "Refreshing" = "Chargement...";
+
+//LGAUserTrackingBarButtonItem
+"LocationAccessDenied" = "Localisation impossible";
+"GrantAccessToLocationExplanations" = "Pour pouvoir afficher votre position sur le plan, authorisez l'accès à la localisation sous Réglages > Confidentialité> Service de localisation.";

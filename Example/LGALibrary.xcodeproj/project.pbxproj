@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3291EFE819B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3291EFE719B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m */; };
+		32DD524019B4A36500B5B241 /* LGAMapExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DD523F19B4A36500B5B241 /* LGAMapExampleViewController.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -40,6 +41,8 @@
 		041623D649E047588E8D8B3A /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3291EFE619B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGARefreshControlExampleTableViewController.h; sourceTree = "<group>"; };
 		3291EFE719B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGARefreshControlExampleTableViewController.m; sourceTree = "<group>"; };
+		32DD523E19B4A36500B5B241 /* LGAMapExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGAMapExampleViewController.h; sourceTree = "<group>"; };
+		32DD523F19B4A36500B5B241 /* LGAMapExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGAMapExampleViewController.m; sourceTree = "<group>"; };
 		4E11C66D1C744D919673222B /* LGALibrary.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LGALibrary.podspec; path = ../LGALibrary.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* LGALibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGALibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -139,6 +142,8 @@
 				6003F5A6195388D20070C39A /* LGAViewController.m */,
 				3291EFE619B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.h */,
 				3291EFE719B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m */,
+				32DD523E19B4A36500B5B241 /* LGAMapExampleViewController.h */,
+				32DD523F19B4A36500B5B241 /* LGAMapExampleViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -353,6 +358,7 @@
 				6003F59E195388D20070C39A /* LGAAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* LGAViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				32DD524019B4A36500B5B241 /* LGAMapExampleViewController.m in Sources */,
 				3291EFE819B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
