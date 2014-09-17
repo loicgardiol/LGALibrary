@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		328A77CE19C9B9B100C3978E /* LGAScrollExampleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 328A77CD19C9B9B100C3978E /* LGAScrollExampleTableViewController.m */; };
 		3291EFE819B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3291EFE719B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m */; };
 		32DD524019B4A36500B5B241 /* LGAMapExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DD523F19B4A36500B5B241 /* LGAMapExampleViewController.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -39,6 +40,8 @@
 
 /* Begin PBXFileReference section */
 		041623D649E047588E8D8B3A /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		328A77CC19C9B9B100C3978E /* LGAScrollExampleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGAScrollExampleTableViewController.h; sourceTree = "<group>"; };
+		328A77CD19C9B9B100C3978E /* LGAScrollExampleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGAScrollExampleTableViewController.m; sourceTree = "<group>"; };
 		3291EFE619B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGARefreshControlExampleTableViewController.h; sourceTree = "<group>"; };
 		3291EFE719B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGARefreshControlExampleTableViewController.m; sourceTree = "<group>"; };
 		32DD523E19B4A36500B5B241 /* LGAMapExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGAMapExampleViewController.h; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 				3291EFE719B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m */,
 				32DD523E19B4A36500B5B241 /* LGAMapExampleViewController.h */,
 				32DD523F19B4A36500B5B241 /* LGAMapExampleViewController.m */,
+				328A77CC19C9B9B100C3978E /* LGAScrollExampleTableViewController.h */,
+				328A77CD19C9B9B100C3978E /* LGAScrollExampleTableViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -357,6 +362,7 @@
 			files = (
 				6003F59E195388D20070C39A /* LGAAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* LGAViewController.m in Sources */,
+				328A77CE19C9B9B100C3978E /* LGAScrollExampleTableViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				32DD524019B4A36500B5B241 /* LGAMapExampleViewController.m in Sources */,
 				3291EFE819B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m in Sources */,
