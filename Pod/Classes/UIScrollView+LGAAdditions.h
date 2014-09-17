@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, LGAUIScrollViewScrollDirection) {
 
 /**
  * @discussion If this block is set, it is called when the state between
- * visible or hidden controls should be changed. If set, you self.delegate cannot be changed.
+ * visible or hidden controls should be changed.
  * Default: nil
  */
 @property (nonatomic, copy) void (^lga_toggleElementsVisiblityOnScrollBlock)(BOOL hidden);
