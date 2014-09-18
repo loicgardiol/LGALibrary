@@ -160,7 +160,7 @@ static NSString* const kToggleElementsVisiblityOnScrollBlockKey = @"lga_toggleEl
     
     self.lga_accumulatedContentOffsetY += diff;
     
-    if (self.lga_accumulatedContentOffsetY >= 30.0) {
+    if (self.lga_accumulatedContentOffsetY >= 30.0 && self.contentOffset.y >= 0.0) {
         self.lga_accumulatedContentOffsetY = 0.0;
         if (self.lga_lastScrollDirection != LGAUIScrollViewScrollDirectionDown) {
             self.lga_lastScrollDirection = LGAUIScrollViewScrollDirectionDown;
