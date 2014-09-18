@@ -30,11 +30,80 @@ static NSString* kKVOContext = 0;
 
 @property (nonatomic) CGFloat lga_lastContentOffsetY;
 
+@property (nonatomic) CGFloat lga_accumulatedContentOffsetY;
+
 @property (nonatomic) LGAUIScrollViewScrollDirection lga_lastScrollDirection;
 
 @end
 
 @implementation UIScrollView (LGAAdditions)
+
++ (void)load {
+    [self swizzleKVO];
+    [self swizzleDealloc];
+}
+
++ (void)swizzleKVO {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [self class];
+        
+        // When swizzling a class method, use the following:
+        // Class class = object_getClass((id)self);
+        
+        SEL originalSelector = @selector(observeValueForKeyPath:ofObject:change:context:);
+        SEL swizzledSelector = @selector(lga_observeValueForKeyPath:ofObject:change:context:);
+        
+        Method originalMethod = class_getInstanceMethod(class, originalSelector);
+        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+        
+        BOOL didAddMethod =
+        class_addMethod(class,
+                        originalSelector,
+                        method_getImplementation(swizzledMethod),
+                        method_getTypeEncoding(swizzledMethod));
+        
+        if (didAddMethod) {
+            class_replaceMethod(class,
+                                swizzledSelector,
+                                method_getImplementation(originalMethod),
+                                method_getTypeEncoding(originalMethod));
+        } else {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
+    });
+}
+
++ (void)swizzleDealloc {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [self class];
+        
+        // When swizzling a class method, use the following:
+        // Class class = object_getClass((id)self);
+        
+        SEL originalSelector = NSSelectorFromString(@"dealloc");
+        SEL swizzledSelector = @selector(lga_dealloc);
+        
+        Method originalMethod = class_getInstanceMethod(class, originalSelector);
+        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+        
+        BOOL didAddMethod =
+        class_addMethod(class,
+                        originalSelector,
+                        method_getImplementation(swizzledMethod),
+                        method_getTypeEncoding(swizzledMethod));
+        
+        if (didAddMethod) {
+            class_replaceMethod(class,
+                                swizzledSelector,
+                                method_getImplementation(originalMethod),
+                                method_getTypeEncoding(originalMethod));
+        } else {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
+    });
+}
 
 #pragma mark - Public
 
@@ -55,9 +124,10 @@ static NSString* const kToggleElementsVisiblityOnScrollBlockKey = @"lga_toggleEl
 }
 
 - (LGAUIScrollViewScrollDirection)lga_scrollDirection {
-    if (self.contentOffset.y <= 0.0) {
+    if (self.contentOffset.y <= 0.0 || self.contentOffset.y >= self.contentSize.height) {
         return LGAUIScrollViewScrollDirectionStatic;
     }
+    //NSLog(@"%lf %lf", self.contentOffset.y, self.contentSize.height);
     CGFloat diff = self.contentOffset.y - self.lga_lastContentOffsetY;
     self.lga_lastContentOffsetY = self.contentOffset.y;
     if (diff > 0.0) {
@@ -71,22 +141,47 @@ static NSString* const kToggleElementsVisiblityOnScrollBlockKey = @"lga_toggleEl
 
 #pragma mark - KVO
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)lga_observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == self && context == &kKVOContext) {
-        LGAUIScrollViewScrollDirection scrollDirection = self.lga_scrollDirection;
-        if (scrollDirection == LGAUIScrollViewScrollDirectionStatic) {
-            return;
-        }
-        BOOL hidden = (scrollDirection == LGAUIScrollViewScrollDirectionDown);
-        if (self.lga_lastScrollDirection != scrollDirection) {
-            void (^toggleBlock)(BOOL hidden) = self.lga_toggleElementsVisiblityOnScrollBlock;
-            toggleBlock(hidden);
-        }
-        self.lga_lastScrollDirection = scrollDirection;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self lga_handleScroll];
+        });
+    } else {
+        [self lga_observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
 #pragma mark - Private
+
+- (void)lga_handleScroll {
+    
+    CGFloat diff = self.contentOffset.y - self.lga_lastContentOffsetY;
+    self.lga_lastContentOffsetY = self.contentOffset.y;
+    
+    self.lga_accumulatedContentOffsetY += diff;
+    
+    if (self.lga_accumulatedContentOffsetY >= 30.0) {
+        self.lga_accumulatedContentOffsetY = 0.0;
+        if (self.lga_lastScrollDirection != LGAUIScrollViewScrollDirectionDown) {
+            self.lga_lastScrollDirection = LGAUIScrollViewScrollDirectionDown;
+            void (^toggleBlock)(BOOL hidden) = self.lga_toggleElementsVisiblityOnScrollBlock;
+            if (toggleBlock) {
+                toggleBlock(YES);
+            }
+        }
+    } else if (self.lga_accumulatedContentOffsetY <= -100.0) {
+        self.lga_accumulatedContentOffsetY = 0.0;
+        if (self.lga_lastScrollDirection != LGAUIScrollViewScrollDirectionUp) {
+            self.lga_lastScrollDirection = LGAUIScrollViewScrollDirectionUp;
+            void (^toggleBlock)(BOOL hidden) = self.lga_toggleElementsVisiblityOnScrollBlock;
+            if (toggleBlock) {
+                toggleBlock(NO);
+            }
+        }
+    }
+}
+
+#pragma mark Properties
 
 static NSString* const kLastContentOffsetY = @"lga_lastContentOffsetY";
 
@@ -98,6 +193,18 @@ static NSString* const kLastContentOffsetY = @"lga_lastContentOffsetY";
 - (void)setLga_lastContentOffsetY:(CGFloat)lga_lastContentOffsetY {
     objc_setAssociatedObject(self, (__bridge const void *)(kLastContentOffsetY), @(lga_lastContentOffsetY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
+static NSString* const kAccumulatedContentOffsetY = @"lga_accumulatedContentOffsetY";
+
+- (CGFloat)lga_accumulatedContentOffsetY {
+    id value = objc_getAssociatedObject(self, (__bridge const void *)(kAccumulatedContentOffsetY));
+    return [value floatValue];
+}
+
+- (void)setLga_accumulatedContentOffsetY:(CGFloat)lga_accumulatedContentOffsetY{
+    objc_setAssociatedObject(self, (__bridge const void *)(kAccumulatedContentOffsetY), @(lga_accumulatedContentOffsetY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 
 static NSString* const kLastScrollDirection = @"lga_lastScrollDirection";
 
@@ -112,12 +219,13 @@ static NSString* const kLastScrollDirection = @"lga_lastScrollDirection";
 
 #pragma mark - Dealloc
 
-- (void)dealloc
+- (void)lga_dealloc
 {
     @try {
         [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset))];
     }
     @catch (NSException *exception) {}
+    [self lga_dealloc]; //calling original implementation
 }
 
 @end

@@ -50,7 +50,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 100;
+    return 50;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
