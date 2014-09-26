@@ -24,12 +24,18 @@
 
 #import "UIScrollView+LGAAdditions.h"
 
+#import "LGAEditableTableViewCell.h"
+
+static NSInteger const kUsernameSection = 0;
+static NSInteger const kNumbersSection = 1;
+
 @implementation LGAScrollExampleTableViewController
 
 #pragma mark - UIViewController overrides
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     __weak __typeof(self) welf = self;
     [self.tableView setLga_toggleElementsVisiblityOnScrollBlock:^(BOOL hidden) {
         [welf.navigationController setNavigationBarHidden:hidden animated:YES];
@@ -39,22 +45,46 @@
 #pragma mark - UITableViewDataSource
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* const kIdentifier = @"number";
-    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:kIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    switch (indexPath.section) {
+        case kUsernameSection:
+        {
+            LGAEditableTableViewCell* cell = [LGAEditableTableViewCell new];
+            cell.textLabel.text = @"Username";
+            cell.textField.placeholder = @"e.g. john";
+            return cell;
+            break;
+        }
+        case kNumbersSection:
+        {
+            static NSString* const kIdentifier = @"number";
+            UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:kIdentifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
+            return cell;
+            break;
+        }
+        default:
+            break;
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
-    return cell;
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 50;
+    switch (section) {
+        case kUsernameSection:
+            return 1;
+         case kNumbersSection:
+            return 50;
+    }
+    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 @end
