@@ -34,6 +34,10 @@
 
 #pragma mark - Init
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    [NSException raise:@"Unsupported constructor" format:@"LGAEditableTableViewCell does not support initWithStyle:reuseIdentifier: please use -init"];
+}
+
 - (instancetype)init {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     if (self) {
