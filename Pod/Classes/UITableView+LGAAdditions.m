@@ -31,6 +31,12 @@
         [NSException raise:@"Illegal argument" format:@"elementForIndexPathBlock cannot be nil"];
     }
     NSArray* visibleCells = self.visibleCells;
+    
+    if (visibleCells.count == 0) {
+        [self reloadData];
+        return;
+    }
+    
     NSMutableOrderedSet* priorityIndexPaths = [NSMutableOrderedSet orderedSetWithCapacity:visibleCells.count];
     for (UITableViewCell* cell in visibleCells) {
         NSIndexPath* indexPath = [self indexPathForCell:cell];
@@ -47,7 +53,7 @@
         middleUpIndex = visibleCells.count - 1;
     }
     
-    UITableViewCell* middleUpCell = self.visibleCells[middleUpIndex];
+    UITableViewCell* middleUpCell = visibleCells[middleUpIndex];
     NSIndexPath* middleUpIndexPath = [self indexPathForCell:middleUpCell];
     
     [priorityIndexPaths insertObject:middleUpIndexPath atIndex:0]; //highest priority index to restore position
