@@ -31,7 +31,7 @@
 @property (nonatomic, strong) UITableViewController* strongTableViewController; //used when init with tableview, should retain it
 @property (nonatomic, weak, readwrite) UITableViewController* tableViewController;
 
-@property (nonatomic, weak) UITableView* tableView;
+@property (nonatomic, readonly) UITableView* tableView;
 @property (nonatomic, strong) UIRefreshControl* refreshControl;
 @property (nonatomic, weak) id target;
 @property (nonatomic) SEL selector;
@@ -61,7 +61,6 @@
         self.tableViewController = tableViewController;
         self.refreshedDataIdentifier = dataIdentifier;
         
-        self.tableView = self.tableViewController.tableView;
         _showsDefaultRefreshingMessage = YES;
         self.errorMessageColor = [UIColor colorWithRed:0.827451 green:0.000000 blue:0.000000 alpha:1.0];
         if ([self.tableViewController respondsToSelector:@selector(refreshControl)]) { //>= iOS 6
@@ -102,7 +101,7 @@
     self.message = message;
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
-        [self.tableView setContentOffset:CGPointMake(0, -90.0) animated:YES];
+        [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height-self.tableView.contentInset.top) animated:YES];
     }
 }
 
@@ -121,6 +120,10 @@
     [self setProblemMessage:message];
     [self.showHideTimer invalidate];
     self.showHideTimer = [NSTimer scheduledTimerWithTimeInterval:delay target:self selector:@selector(endRefreshing) userInfo:nil repeats:NO];
+}
+
+- (UITableView*)tableView {
+    return self.tableViewController.tableView;
 }
 
 - (NSDate*)lastSuccessfulRefreshDate {
