@@ -101,7 +101,7 @@
     self.message = message;
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
-        [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:YES];
+        [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES]; //inset.top already contains normal top inset + refresh control height
     }
 }
 
