@@ -115,12 +115,16 @@ static NSString* const kToggleElementsVisiblityOnScrollBlockKey = @"lga_toggleEl
 }
 
 - (void)setLga_toggleElementsVisiblityOnScrollBlock:(void (^)(BOOL))lga_toggleElementsVisiblityOnScrollBlock {
-    @try {
-        [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset))];
+    if (self.lga_toggleElementsVisiblityOnScrollBlock) {
+        @try {
+            [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset))];
+        }
+        @catch (NSException *exception) {}
     }
-    @catch (NSException *exception) {}
     objc_setAssociatedObject(self, (__bridge const void *)(kToggleElementsVisiblityOnScrollBlockKey), lga_toggleElementsVisiblityOnScrollBlock, OBJC_ASSOCIATION_COPY);
-    [self addObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset)) options:NSKeyValueObservingOptionNew context:&kKVOContext];
+    if (lga_toggleElementsVisiblityOnScrollBlock) {
+        [self addObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset)) options:NSKeyValueObservingOptionNew context:&kKVOContext];
+    }
 }
 
 - (LGAUIScrollViewScrollDirection)lga_scrollDirection {
@@ -221,10 +225,12 @@ static NSString* const kLastScrollDirection = @"lga_lastScrollDirection";
 
 - (void)lga_dealloc
 {
-    @try {
-        [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset))];
+    if (self.lga_toggleElementsVisiblityOnScrollBlock) {
+        @try {
+            [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset))];
+        }
+        @catch (NSException *exception) {}
     }
-    @catch (NSException *exception) {}
     [self lga_dealloc]; //calling original implementation
 }
 
