@@ -63,7 +63,7 @@ static NSInteger const kNumbersSection = 1;
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIdentifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
+            cell.textLabel.text = [NSString stringWithFormat:@"%ld", indexPath.row];
             return cell;
             break;
         }

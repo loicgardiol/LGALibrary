@@ -36,6 +36,7 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     [NSException raise:@"Unsupported constructor" format:@"LGAEditableTableViewCell does not support initWithStyle:reuseIdentifier: please use -init"];
+    return nil;
 }
 
 - (instancetype)init {
