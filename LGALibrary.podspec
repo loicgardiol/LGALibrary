@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "LGALibrary"
-  s.version          = "1.2.4"
+  s.version          = "1.2.5"
   s.summary          = "A collection of utilities and categories."
   s.description      = <<-DESC
                         A collection of utilities and categories for iOS development.
