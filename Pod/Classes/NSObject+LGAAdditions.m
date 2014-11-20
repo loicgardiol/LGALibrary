@@ -29,7 +29,7 @@
 /**
  * Private internal class to hold registered observers info
  */
-@interface LGAKVOObserverInfo : NSObject
+@interface LGAKVOObservationInfo : NSObject
 
 @property (nonatomic, weak) NSObject* observer;
 @property (nonatomic, copy) NSString* keyPath;
@@ -38,7 +38,7 @@
 
 @end
 
-@implementation LGAKVOObserverInfo
+@implementation LGAKVOObservationInfo
 
 @end
 
@@ -141,7 +141,7 @@
 
 - (void)lga_addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
     if (self.lga_allObserversInfo) {
-        LGAKVOObserverInfo* info = [LGAKVOObserverInfo new];
+        LGAKVOObservationInfo* info = [LGAKVOObservationInfo new];
         info.observer = observer;
         info.keyPath = keyPath;
         info.options = options;
@@ -167,7 +167,7 @@ static NSString* const kAllObserversInfo = @"lga_allObserversInfo";
 }
 
 - (void)lga_removeAllObservers {
-    for (LGAKVOObserverInfo* observerInfo in self.lga_allObserversInfo) {
+    for (LGAKVOObservationInfo* observerInfo in self.lga_allObserversInfo) {
         @try {
             if (observerInfo.context) {
                 [self removeObserver:observerInfo.observer forKeyPath:observerInfo.keyPath context:observerInfo.context];

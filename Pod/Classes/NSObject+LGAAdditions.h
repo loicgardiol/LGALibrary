@@ -28,11 +28,13 @@
 
 /**
  * If YES, all observers added with KVO method addObserver:forKeyPath:options:context:
- * will be removed from self as observers. This is to prevent the annoying exception
- * "was dealloced while objects were still observing it".
+ * will automatically be removed from self as observers when self is deallocated.
+ * This is to prevent the annoying exception "was dealloced while objects were still observing it".
  *
- * Only observers added *after* setting this property to YES and kept YES
- * until dealloc will be removed.
+ * Only observers added *after* setting this property to YES will be removed
+ * (and the property needs to stay YES until deallocation of the object)
+ * 
+ * Default: NO
  */
 @property (atomic) BOOL lga_automaticallyRemovesObserversOnDealloc;
 
