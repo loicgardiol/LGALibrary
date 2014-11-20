@@ -27,6 +27,14 @@
 @interface NSObject (LGAAdditions)
 
 /**
+ * @discussion Use this method to swizzle methods. You should call this method in +load
+ * @param originalSelector the original selector of the method you want to swizzle
+ * @param swizzledSelector the selector in its swizzled form (typically xyz_originalSelector)
+ # @param isClassMethod pass yes if the selectors are for a class method
+ */
++ (void)lga_swizzleMethodWithOriginalSelector:(SEL)originalSelector withSwizzledSelector:(SEL)swizzledSelector isClassMethod:(BOOL)isClassMethod;
+
+/**
  * If YES, all observers added with KVO method addObserver:forKeyPath:options:context:
  * will automatically be removed from self as observers when self is deallocated.
  * This is to prevent the annoying exception "was dealloced while objects were still observing it".

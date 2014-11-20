@@ -22,6 +22,8 @@
 
 #import "UIScrollView+LGAAdditions.h"
 
+#import "NSObject+LGAAdditions.h"
+
 #import <objc/runtime.h>
 
 static NSString* kKVOContext = 0;
@@ -39,70 +41,9 @@ static NSString* kKVOContext = 0;
 @implementation UIScrollView (LGAAdditions)
 
 + (void)load {
-    [self swizzleKVO];
-    [self swizzleDealloc];
-}
-
-+ (void)swizzleKVO {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        Class class = [self class];
-        
-        // When swizzling a class method, use the following:
-        // Class class = object_getClass((id)self);
-        
-        SEL originalSelector = @selector(observeValueForKeyPath:ofObject:change:context:);
-        SEL swizzledSelector = @selector(lga_observeValueForKeyPath:ofObject:change:context:);
-        
-        Method originalMethod = class_getInstanceMethod(class, originalSelector);
-        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-        
-        BOOL didAddMethod =
-        class_addMethod(class,
-                        originalSelector,
-                        method_getImplementation(swizzledMethod),
-                        method_getTypeEncoding(swizzledMethod));
-        
-        if (didAddMethod) {
-            class_replaceMethod(class,
-                                swizzledSelector,
-                                method_getImplementation(originalMethod),
-                                method_getTypeEncoding(originalMethod));
-        } else {
-            method_exchangeImplementations(originalMethod, swizzledMethod);
-        }
-    });
-}
-
-+ (void)swizzleDealloc {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        Class class = [self class];
-        
-        // When swizzling a class method, use the following:
-        // Class class = object_getClass((id)self);
-        
-        SEL originalSelector = NSSelectorFromString(@"dealloc"); //cannot use @selector (ARC forbids id)
-        SEL swizzledSelector = @selector(lga_dealloc);
-        
-        Method originalMethod = class_getInstanceMethod(class, originalSelector);
-        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-        
-        BOOL didAddMethod =
-        class_addMethod(class,
-                        originalSelector,
-                        method_getImplementation(swizzledMethod),
-                        method_getTypeEncoding(swizzledMethod));
-        
-        if (didAddMethod) {
-            class_replaceMethod(class,
-                                swizzledSelector,
-                                method_getImplementation(originalMethod),
-                                method_getTypeEncoding(originalMethod));
-        } else {
-            method_exchangeImplementations(originalMethod, swizzledMethod);
-        }
-    });
+    [self lga_swizzleMethodWithOriginalSelector:@selector(observeValueForKeyPath:ofObject:change:context:) withSwizzledSelector:@selector(lga_observeValueForKeyPath:ofObject:change:context:) isClassMethod:NO];
+    [self lga_swizzleMethodWithOriginalSelector:NSSelectorFromString(@"dealloc") withSwizzledSelector:@selector(lga_dealloc) isClassMethod:NO];
+    
 }
 
 #pragma mark - Public

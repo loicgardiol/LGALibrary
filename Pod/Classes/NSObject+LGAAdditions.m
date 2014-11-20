@@ -51,89 +51,53 @@
 @implementation NSObject (LGAAdditions)
 
 + (void)load {
-    [self swizzleKVO];
-    [self swizzleDealloc];
-}
-
-+ (void)swizzleKVO {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        Class class = [self class];
-        
-        // When swizzling a class method, use the following:
-        // Class class = object_getClass((id)self);
-        
-        SEL originalSelector = @selector(addObserver:forKeyPath:options:context:);
-        SEL swizzledSelector = @selector(lga_addObserver:forKeyPath:options:context:);
-        
-        Method originalMethod = class_getInstanceMethod(class, originalSelector);
-        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-        
-        BOOL didAddMethod =
-        class_addMethod(class,
-                        originalSelector,
-                        method_getImplementation(swizzledMethod),
-                        method_getTypeEncoding(swizzledMethod));
-        
-        if (didAddMethod) {
-            class_replaceMethod(class,
-                                swizzledSelector,
-                                method_getImplementation(originalMethod),
-                                method_getTypeEncoding(originalMethod));
-        } else {
-            method_exchangeImplementations(originalMethod, swizzledMethod);
-        }
-    });
-}
-
-+ (void)swizzleDealloc {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        Class class = [self class];
-        
-        // When swizzling a class method, use the following:
-        // Class class = object_getClass((id)self);
-        
-        SEL originalSelector = NSSelectorFromString(@"dealloc"); //cannot use @selector (ARC forbids id)
-        SEL swizzledSelector = @selector(lga_dealloc);
-        
-        Method originalMethod = class_getInstanceMethod(class, originalSelector);
-        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-        
-        BOOL didAddMethod =
-        class_addMethod(class,
-                        originalSelector,
-                        method_getImplementation(swizzledMethod),
-                        method_getTypeEncoding(swizzledMethod));
-        
-        if (didAddMethod) {
-            class_replaceMethod(class,
-                                swizzledSelector,
-                                method_getImplementation(originalMethod),
-                                method_getTypeEncoding(originalMethod));
-        } else {
-            method_exchangeImplementations(originalMethod, swizzledMethod);
-        }
-    });
+    [self lga_swizzleMethodWithOriginalSelector:@selector(addObserver:forKeyPath:options:context:) withSwizzledSelector:@selector(lga_addObserver:forKeyPath:options:context:) isClassMethod:NO];
+    [self lga_swizzleMethodWithOriginalSelector:@selector(removeObserver:forKeyPath:) withSwizzledSelector:@selector(lga_removeObserver:forKeyPath:) isClassMethod:NO];
+    [self lga_swizzleMethodWithOriginalSelector:@selector(removeObserver:forKeyPath:context:) withSwizzledSelector:@selector(lga_removeObserver:forKeyPath:context:) isClassMethod:NO];
+    [self lga_swizzleMethodWithOriginalSelector:NSSelectorFromString(@"dealloc") withSwizzledSelector:@selector(lga_dealloc) isClassMethod:NO];
 }
 
 #pragma mark - Public
 
-- (BOOL)lga_automaticallyRemovesObserversOnDealloc {
-    @synchronized (self) {
-        return (self.lga_allObserversInfo != nil);
++ (void)lga_swizzleMethodWithOriginalSelector:(SEL)originalSelector withSwizzledSelector:(SEL)swizzledSelector isClassMethod:(BOOL)isClassMethod {
+    
+    Class class;
+    if (isClassMethod) {
+        class = object_getClass((id)self);
+    } else {
+        class = [self class];
+    }
+    
+    Method originalMethod = class_getInstanceMethod(class, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+    
+    BOOL didAddMethod =
+    class_addMethod(class,
+                    originalSelector,
+                    method_getImplementation(swizzledMethod),
+                    method_getTypeEncoding(swizzledMethod));
+    
+    if (didAddMethod) {
+        class_replaceMethod(class,
+                            swizzledSelector,
+                            method_getImplementation(originalMethod),
+                            method_getTypeEncoding(originalMethod));
+    } else {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
     }
 }
 
+- (BOOL)lga_automaticallyRemovesObserversOnDealloc {
+    return (self.lga_allObserversInfo != nil);
+}
+
 - (void)setLga_automaticallyRemovesObserversOnDealloc:(BOOL)lga_automaticallyRemovesObserversOnDealloc {
-    @synchronized (self) {
-        if (lga_automaticallyRemovesObserversOnDealloc) {
-            if (!self.lga_allObserversInfo) {
-                self.lga_allObserversInfo = [NSMutableArray array];
-            }
-        } else {
-            self.lga_allObserversInfo = nil;
+    if (lga_automaticallyRemovesObserversOnDealloc) {
+        if (!self.lga_allObserversInfo) {
+            self.lga_allObserversInfo = [NSMutableArray array];
         }
+    } else {
+        self.lga_allObserversInfo = nil;
     }
 }
 
@@ -151,6 +115,28 @@
     [self lga_addObserver:observer forKeyPath:keyPath options:options context:context];
 }
 
+- (void)lga_removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath {
+    if (self.lga_allObserversInfo) {
+        for (LGAKVOObservationInfo* info in [self.lga_allObserversInfo copy]) {
+            if (info.observer == observer && [info.keyPath isEqualToString:keyPath]) {
+                [self.lga_allObserversInfo removeObject:info];
+            }
+        }
+    }
+    [self lga_removeObserver:observer forKeyPath:keyPath];
+}
+
+- (void)lga_removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(void *)context {
+    if (self.lga_allObserversInfo) {
+        for (LGAKVOObservationInfo* info in [self.lga_allObserversInfo copy]) {
+            if (info.observer == observer && [info.keyPath isEqualToString:keyPath] && info.context == context) {
+                [self.lga_allObserversInfo removeObject:info];
+            }
+        }
+    }
+    [self lga_removeObserver:observer forKeyPath:keyPath context:context];
+}
+
 #pragma mark - Private
 
 static NSString* const kAllObserversInfo = @"lga_allObserversInfo";
@@ -161,18 +147,16 @@ static NSString* const kAllObserversInfo = @"lga_allObserversInfo";
 }
 
 - (void)setLga_allObserversInfo:(NSMutableArray *)lga_allObserversInfo {
-    @synchronized (self) {
-        objc_setAssociatedObject(self, (__bridge const void *)(kAllObserversInfo), lga_allObserversInfo, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, (__bridge const void *)(kAllObserversInfo), lga_allObserversInfo, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)lga_removeAllObservers {
-    for (LGAKVOObservationInfo* observerInfo in self.lga_allObserversInfo) {
+    for (LGAKVOObservationInfo* info in self.lga_allObserversInfo) {
         @try {
-            if (observerInfo.context) {
-                [self removeObserver:observerInfo.observer forKeyPath:observerInfo.keyPath context:observerInfo.context];
+            if (info.context) {
+                [self removeObserver:info.observer forKeyPath:info.keyPath context:info.context];
             } else {
-                [self removeObserver:observerInfo.observer forKeyPath:observerInfo.keyPath];
+                [self removeObserver:info.observer forKeyPath:info.keyPath];
             }
         }
         @catch (NSException *exception) {}
