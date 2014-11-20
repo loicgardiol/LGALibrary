@@ -82,7 +82,7 @@ static NSString* kKVOContext = 0;
         // When swizzling a class method, use the following:
         // Class class = object_getClass((id)self);
         
-        SEL originalSelector = NSSelectorFromString(@"dealloc");
+        SEL originalSelector = NSSelectorFromString(@"dealloc"); //cannot use @selector (ARC forbids id)
         SEL swizzledSelector = @selector(lga_dealloc);
         
         Method originalMethod = class_getInstanceMethod(class, originalSelector);

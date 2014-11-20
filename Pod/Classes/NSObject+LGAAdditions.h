@@ -20,37 +20,20 @@
 // THE SOFTWARE.
 //
 
-//  Created by Loic Gardiol on 08/05/2014.
+//  Created by Loïc Gardiol on 20.11.14.
 
-#import "LGAViewController.h"
+@import Foundation;
 
-#import "LGARefreshControlExampleTableViewController.h"
+@interface NSObject (LGAAdditions)
 
-#import "NSObject+LGAAdditions.h"
-
-@interface LGAViewController ()
-
-@end
-
-@implementation LGAViewController
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.    
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Actions
-
-- (IBAction)pushLGARefreshControlExample {
-    LGARefreshControlExampleTableViewController* viewController = [[LGARefreshControlExampleTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    [self.navigationController pushViewController:viewController animated:YES];
-}
+/**
+ * If YES, all observers added with KVO method addObserver:forKeyPath:options:context:
+ * will be removed from self as observers. This is to prevent the annoying exception
+ * "was dealloced while objects were still observing it".
+ *
+ * Only observers added *after* setting this property to YES and kept YES
+ * until dealloc will be removed.
+ */
+@property (atomic) BOOL lga_automaticallyRemovesObserversOnDealloc;
 
 @end
