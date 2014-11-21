@@ -51,10 +51,13 @@
 @implementation NSObject (LGAAdditions)
 
 + (void)load {
-    [self lga_swizzleMethodWithOriginalSelector:@selector(addObserver:forKeyPath:options:context:) withSwizzledSelector:@selector(lga_addObserver:forKeyPath:options:context:) isClassMethod:NO];
-    [self lga_swizzleMethodWithOriginalSelector:@selector(removeObserver:forKeyPath:) withSwizzledSelector:@selector(lga_removeObserver:forKeyPath:) isClassMethod:NO];
-    [self lga_swizzleMethodWithOriginalSelector:@selector(removeObserver:forKeyPath:context:) withSwizzledSelector:@selector(lga_removeObserver:forKeyPath:context:) isClassMethod:NO];
-    [self lga_swizzleMethodWithOriginalSelector:NSSelectorFromString(@"dealloc") withSwizzledSelector:@selector(lga_dealloc) isClassMethod:NO];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self lga_swizzleMethodWithOriginalSelector:@selector(addObserver:forKeyPath:options:context:) withSwizzledSelector:@selector(lga_nsobject_addObserver:forKeyPath:options:context:) isClassMethod:NO];
+        [self lga_swizzleMethodWithOriginalSelector:@selector(removeObserver:forKeyPath:) withSwizzledSelector:@selector(lga_nsobject_removeObserver:forKeyPath:) isClassMethod:NO];
+        [self lga_swizzleMethodWithOriginalSelector:@selector(removeObserver:forKeyPath:context:) withSwizzledSelector:@selector(lga_nsobject_removeObserver:forKeyPath:context:) isClassMethod:NO];
+        [self lga_swizzleMethodWithOriginalSelector:NSSelectorFromString(@"dealloc") withSwizzledSelector:@selector(lga_nsobject_dealloc) isClassMethod:NO];
+    });
 }
 
 #pragma mark - Public
@@ -66,6 +69,14 @@
         class = object_getClass((id)self);
     } else {
         class = [self class];
+    }
+    
+    if (!originalSelector) {
+        [NSException raise:@"Illegal argument" format:@"originalSelector cannot be nil"];
+    }
+    
+    if (!swizzledSelector) {
+        [NSException raise:@"Illegal argument" format:@"swizzledSelector cannot be nil"];
     }
     
     Method originalMethod = class_getInstanceMethod(class, originalSelector);
@@ -103,7 +114,7 @@
 
 #pragma mark - KVO
 
-- (void)lga_addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
+- (void)lga_nsobject_addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
     if (self.lga_allObserversInfo) {
         LGAKVOObservationInfo* info = [LGAKVOObservationInfo new];
         info.observer = observer;
@@ -112,10 +123,10 @@
         info.context = context;
         [self.lga_allObserversInfo addObject:info];
     }
-    [self lga_addObserver:observer forKeyPath:keyPath options:options context:context];
+    [self lga_nsobject_addObserver:observer forKeyPath:keyPath options:options context:context];
 }
 
-- (void)lga_removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath {
+- (void)lga_nsobject_removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath {
     if (self.lga_allObserversInfo) {
         for (LGAKVOObservationInfo* info in [self.lga_allObserversInfo copy]) {
             if (info.observer == observer && [info.keyPath isEqualToString:keyPath]) {
@@ -123,10 +134,10 @@
             }
         }
     }
-    [self lga_removeObserver:observer forKeyPath:keyPath];
+    [self lga_nsobject_removeObserver:observer forKeyPath:keyPath];
 }
 
-- (void)lga_removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(void *)context {
+- (void)lga_nsobject_removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(void *)context {
     if (self.lga_allObserversInfo) {
         for (LGAKVOObservationInfo* info in [self.lga_allObserversInfo copy]) {
             if (info.observer == observer && [info.keyPath isEqualToString:keyPath] && info.context == context) {
@@ -134,7 +145,7 @@
             }
         }
     }
-    [self lga_removeObserver:observer forKeyPath:keyPath context:context];
+    [self lga_nsobject_removeObserver:observer forKeyPath:keyPath context:context];
 }
 
 #pragma mark - Private
@@ -165,12 +176,12 @@ static NSString* const kAllObserversInfo = @"lga_allObserversInfo";
 
 #pragma mark - Dealloc
 
-- (void)lga_dealloc
+- (void)lga_nsobject_dealloc
 {
     if (self.lga_allObserversInfo) {
         [self lga_removeAllObservers];
     }
-    [self lga_dealloc]; //calling original implementation
+    [self lga_nsobject_dealloc]; //calling original implementation
 }
 
 

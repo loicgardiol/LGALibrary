@@ -41,9 +41,11 @@ static NSString* kKVOContext = 0;
 @implementation UIScrollView (LGAAdditions)
 
 + (void)load {
-    [self lga_swizzleMethodWithOriginalSelector:@selector(observeValueForKeyPath:ofObject:change:context:) withSwizzledSelector:@selector(lga_observeValueForKeyPath:ofObject:change:context:) isClassMethod:NO];
-    [self lga_swizzleMethodWithOriginalSelector:NSSelectorFromString(@"dealloc") withSwizzledSelector:@selector(lga_dealloc) isClassMethod:NO];
-    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self lga_swizzleMethodWithOriginalSelector:@selector(observeValueForKeyPath:ofObject:change:context:) withSwizzledSelector:@selector(lga_uiscrollview_observeValueForKeyPath:ofObject:change:context:) isClassMethod:NO];
+        [self lga_swizzleMethodWithOriginalSelector:NSSelectorFromString(@"dealloc") withSwizzledSelector:@selector(lga_uiscrollview_dealloc) isClassMethod:NO];
+    });
 }
 
 #pragma mark - Public
@@ -86,13 +88,13 @@ static NSString* const kToggleElementsVisiblityOnScrollBlockKey = @"lga_toggleEl
 
 #pragma mark - KVO
 
-- (void)lga_observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)lga_uiscrollview_observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == self && context == &kKVOContext) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self lga_handleScroll];
         });
     } else {
-        [self lga_observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        [self lga_uiscrollview_observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
@@ -164,7 +166,7 @@ static NSString* const kLastScrollDirection = @"lga_lastScrollDirection";
 
 #pragma mark - Dealloc
 
-- (void)lga_dealloc
+- (void)lga_uiscrollview_dealloc
 {
     if (self.lga_toggleElementsVisiblityOnScrollBlock) {
         @try {
@@ -172,7 +174,7 @@ static NSString* const kLastScrollDirection = @"lga_lastScrollDirection";
         }
         @catch (NSException *exception) {}
     }
-    [self lga_dealloc]; //calling original implementation
+    [self lga_uiscrollview_dealloc]; //calling original implementation
 }
 
 @end
