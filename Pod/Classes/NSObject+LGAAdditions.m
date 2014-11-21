@@ -31,7 +31,7 @@
  */
 @interface LGAKVOObservationInfo : NSObject
 
-@property (nonatomic, weak) NSObject* observer;
+@property (nonatomic, unsafe_unretained) NSObject* observer;
 @property (nonatomic, copy) NSString* keyPath;
 @property (nonatomic) NSKeyValueObservingOptions options;
 @property (nonatomic, unsafe_unretained) void* context;
