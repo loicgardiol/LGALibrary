@@ -86,6 +86,14 @@ static NSString* const kToggleElementsVisiblityOnScrollBlockKey = @"lga_toggleEl
     }
 }
 
+- (BOOL)lga_isAtTop {
+    return self.contentOffset.y <= -self.contentInset.top;
+}
+
+- (BOOL)lga_isAtBottom {
+    return self.contentOffset.y >= (self.contentSize.height + self.contentInset.bottom - self.bounds.size.height);
+}
+
 #pragma mark - KVO
 
 - (void)lga_uiscrollview_observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

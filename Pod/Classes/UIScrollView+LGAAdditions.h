@@ -39,4 +39,8 @@ typedef NS_ENUM(NSInteger, LGAUIScrollViewScrollDirection) {
 
 @property (nonatomic, readonly) LGAUIScrollViewScrollDirection lga_scrollDirection;
 
+@property (nonatomic, readonly) BOOL lga_isAtTop;
+
+@property (nonatomic, readonly) BOOL lga_isAtBottom;
+
 @end
