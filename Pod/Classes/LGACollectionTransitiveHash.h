@@ -22,20 +22,15 @@
 
 @import Foundation;
 
-#import "LGACollectionTransitiveHash.h"
+@protocol LGACollectionTransitiveHash <NSObject>
 
-@interface NSDictionary (LGAAdditions)<LGACollectionTransitiveHash>
-
-/**
- * @return whether all keys-values pairs of receiver can be found in dictionary.
- */
-- (BOOL)lga_isContainedInDictionary:(NSDictionary*)dictionary;
+@required
 
 /**
- * @return a hash computed with hash of all keys and all values.
- * @discussion if a key or a value responds to lga_transitiveHash,
- * the value returned returned by lga_transitiveHash is integrated
- * into the hash computation.
+ * @return a hash that goes does the hierarchy of the elements of the collection.
+ * @discussion collections implementing this protocol must make sure that
+ * they integrate the value of lga_transitiveHash of all their elements that
+ * implement this selector.
  */
 - (NSUInteger)lga_transitiveHash;
 

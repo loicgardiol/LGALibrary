@@ -24,7 +24,7 @@
 
 @implementation NSDictionary (LGAAdditions)
 
-- (BOOL)lg_isContainedInDictionary:(NSDictionary*)dictionary {
+- (BOOL)lga_isContainedInDictionary:(NSDictionary*)dictionary {
     NSArray* allSelfKeys = self.allKeys;
     NSUInteger nbPairsFound = 0;
     for (NSString* key in allSelfKeys) {
@@ -38,21 +38,26 @@
     return (nbPairsFound == allSelfKeys.count);
 }
 
-- (NSUInteger)lg_transitiveHash{
-    NSUInteger prime = 31;
-    NSUInteger result = 1;
+- (NSUInteger)lga_transitiveHash{
+    static NSUInteger const kPrime = 31;
+    static SEL transHashSelector = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        transHashSelector = @selector(lga_transitiveHash);
+    });
     
-    for(id key in self){
-        id entry = self[key];
-        if([entry isKindOfClass:[self class]]){
-            result = prime * result + [entry hash];
-            result = prime * result + [self[key] lg_transitiveHash];
-        }else{
-            result = prime * result + [entry hash];
-            result = prime * result + [self[key] hash];
+    NSUInteger result = 1;
+    for (id key in self) {
+        result = kPrime * result + [key hash];
+        if ([key respondsToSelector:transHashSelector]) {
+            result = kPrime * result + [key lga_transitiveHash];
+        }
+        id value = self[key];
+        result = kPrime * result + [value hash];
+        if ([value respondsToSelector:transHashSelector]) {
+            result = kPrime * result + [value lga_transitiveHash];
         }
     }
-    
     return result;
 }
 

@@ -24,16 +24,11 @@
 
 #import "LGACollectionTransitiveHash.h"
 
-@interface NSDictionary (LGAAdditions)<LGACollectionTransitiveHash>
+@interface NSArray (LGAAdditions)<LGACollectionTransitiveHash>
 
 /**
- * @return whether all keys-values pairs of receiver can be found in dictionary.
- */
-- (BOOL)lga_isContainedInDictionary:(NSDictionary*)dictionary;
-
-/**
- * @return a hash computed with hash of all keys and all values.
- * @discussion if a key or a value responds to lga_transitiveHash,
+ * @return a hash computed with hash of all elements in the array.
+ * @discussion if an element responds to lga_transitiveHash,
  * the value returned returned by lga_transitiveHash is integrated
  * into the hash computation.
  */

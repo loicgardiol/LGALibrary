@@ -20,23 +20,26 @@
 // THE SOFTWARE.
 //
 
-@import Foundation;
+#import "NSSet+LGAAdditions.h"
 
-#import "LGACollectionTransitiveHash.h"
+@implementation NSOrderedSet (LGAAdditions)
 
-@interface NSDictionary (LGAAdditions)<LGACollectionTransitiveHash>
-
-/**
- * @return whether all keys-values pairs of receiver can be found in dictionary.
- */
-- (BOOL)lga_isContainedInDictionary:(NSDictionary*)dictionary;
-
-/**
- * @return a hash computed with hash of all keys and all values.
- * @discussion if a key or a value responds to lga_transitiveHash,
- * the value returned returned by lga_transitiveHash is integrated
- * into the hash computation.
- */
-- (NSUInteger)lga_transitiveHash;
+- (NSUInteger)lga_transitiveHash {
+    static NSUInteger const kPrime = 31;
+    static SEL transHashSelector = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        transHashSelector = @selector(lga_transitiveHash);
+    });
+    
+    NSUInteger result = 1;
+    for (id element in self) {
+        result = kPrime * result + [element hash];
+        if ([element respondsToSelector:transHashSelector]) {
+            result = kPrime * result + [element lga_transitiveHash];
+        }
+    }
+    return result;
+}
 
 @end
