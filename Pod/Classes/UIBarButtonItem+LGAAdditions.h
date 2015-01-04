@@ -20,23 +20,22 @@
 // THE SOFTWARE.
 //
 
-@import Foundation;
+@import UIKit;
 
-#import "LGACollectionTransitiveHash.h"
+@interface UIBarButtonItem (LGAAdditions)
 
-@interface NSDictionary (LGAAdditions)<LGACollectionTransitiveHash>
+- (instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem lga_actionBlock:(void (^)(UIBarButtonItem*))actionBlock;
+
+- (instancetype)initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style lga_actionBlock:(void (^)(UIBarButtonItem*))actionBlock;
+
+- (instancetype)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style lga_actionBlock:(void (^)(UIBarButtonItem*))actionBlock;
+
+- (instancetype)initWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style lga_actionBlock:(void (^)(UIBarButtonItem*))actionBlock;
 
 /**
- * @return whether all key-value pairs of receiver can be found in dictionary.
+ * Overrides the target/action pair.
+ * This block will be executed when the action is triggered.
  */
-- (BOOL)lga_isContainedInDictionary:(NSDictionary*)dictionary;
-
-/**
- * @return a hash computed with hash of all keys and all values.
- * @discussion if a key or a value responds to lga_transitiveHash,
- * the value returned returned by lga_transitiveHash is integrated
- * into the hash computation.
- */
-- (NSUInteger)lga_transitiveHash;
+@property (nonatomic, copy) void (^lga_actionBlock)(UIBarButtonItem* sender);
 
 @end
