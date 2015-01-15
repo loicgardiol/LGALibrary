@@ -79,9 +79,6 @@
 }
 
 - (void)setTarget:(id)target selector:(SEL)selector {
-    if (!target) {
-        [NSException raise:@"Illegal argument" format:@"target cannot be nil"];
-    }
     [self.refreshControl removeTarget:self.target action:self.selector forControlEvents:UIControlEventValueChanged];
     [self.refreshControl addTarget:self action:@selector(uiRefreshControlValueChanged) forControlEvents:UIControlEventValueChanged];
     self.target = target;
