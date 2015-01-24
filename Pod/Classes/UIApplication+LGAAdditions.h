@@ -20,22 +20,12 @@
 // THE SOFTWARE.
 //
 
+//  Created by Loïc Gardiol on 24.01.15.
+
 @import UIKit;
 
-@interface UIBarButtonItem (LGAAdditions)
+@interface UIApplication (LGAAdditions)
 
-- (instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem lga_actionBlock:(void (^)(UIBarButtonItem* sender))actionBlock;
-
-- (instancetype)initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style lga_actionBlock:(void (^)(UIBarButtonItem* sender))actionBlock;
-
-- (instancetype)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style lga_actionBlock:(void (^)(UIBarButtonItem* sender))actionBlock;
-
-- (instancetype)initWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style lga_actionBlock:(void (^)(UIBarButtonItem* sender))actionBlock;
-
-/**
- * Overrides the target/action pair.
- * This block will be executed when the action is triggered.
- */
-@property (nonatomic, copy) void (^lga_actionBlock)(UIBarButtonItem* sender);
+@property (nonatomic, readonly) NSTimeInterval lga_lastTouchTimestamp;
 
 @end
