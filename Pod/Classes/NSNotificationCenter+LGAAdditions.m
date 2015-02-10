@@ -32,13 +32,19 @@
 
 @interface LGAObserverWrapper : NSObject
 
-@property (nonatomic, strong) id opaqueObserver;
 @property (nonatomic, copy) NSString* notifName;
 @property (nonatomic, weak) id notifSender;
+@property (nonatomic, copy) void (^block)(NSNotification* notif);
 
 @end
 
 @implementation LGAObserverWrapper
+
+- (void)newNotification:(NSNotification*)notification {
+    if (self.block) {
+        self.block(notification);
+    }
+}
 
 @end
 
@@ -61,12 +67,12 @@
 #pragma mark - Public
 
 - (void)lga_addObserver:(id)observer name:(NSString*)notificationName object:(id)object block:(void (^)(NSNotification* notif))block {
-    id opaqueObserver = [self addObserverForName:notificationName object:object queue:nil usingBlock:block];
-    
     LGAObserverWrapper* wrapper = [LGAObserverWrapper new];
-    wrapper.opaqueObserver = opaqueObserver;
     wrapper.notifName = notificationName;
     wrapper.notifSender = object;
+    wrapper.block = block;
+    
+    [self addObserver:wrapper selector:@selector(newNotification:) name:notificationName object:object];
     
     NSMutableArray* wrappers = self.wrappersForObserver[observer] ?: [NSMutableArray array];
     [wrappers addObject:wrapper];
@@ -76,30 +82,30 @@
 #pragma mark - NSNotificationCenter overrides
 
 - (void)lga_removeObserver:(id)observer {
+    [self lga_removeObserver:observer]; //calling original implementation
     if (observer) {
         NSMutableArray* wrappers = self.wrappersForObserver[observer];
         for (LGAObserverWrapper* wrapper in wrappers) {
-            [self lga_removeObserver:wrapper.opaqueObserver]; //calling original implementation for opaqueObserver
+            [self lga_removeObserver:wrapper];
         }
         [self.wrappersForObserver removeObjectForKey:observer]; //all wrappers removed for this observer
     }
-    [self lga_removeObserver:observer]; //calling original implementation
 }
 
 - (void)lga_removeObserver:(id)observer name:(NSString *)aName object:(id)anObject {
+    [self lga_removeObserver:observer name:aName object:anObject]; //calling original implementation
     if (observer) {
         NSMutableArray* wrappers = self.wrappersForObserver[observer];
         for (LGAObserverWrapper* wrapper in [wrappers copy]) {
-            [self lga_removeObserver:wrapper.opaqueObserver name:aName object:anObject]; //calling original implementation for opaqueObserver
+            [self lga_removeObserver:wrapper name:aName object:anObject]; //calling original implementation for opaqueObserver
             if ((aName && ![aName isEqualToString:wrapper.notifName]) || (anObject && (anObject != wrapper.notifSender))) {
-                // If name or object was specified and one of them is not equal to the corresponding proerty in registered observer (wrapper), observer was not removed.
-                // removeObserver:... does not tell us whether removal was done, that's way we have to determine it ourselves
+                // If name or object was specified and one of them is not equal to the corresponding proerty in registered observer (wrapper), observer was removed.
+                // removeObserver:... does not tell us whether removal was done, that's why we have to determine it ourselves
             } else {
                 [wrappers removeObject:wrapper];
             }
         }
     }
-    [self lga_removeObserver:observer name:aName object:anObject]; //calling original implementation
 }
 
 #pragma mark - Private
