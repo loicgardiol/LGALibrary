@@ -118,7 +118,7 @@
             if (!table) {
                 table = objc_getAssociatedObject(self, (__bridge const void *)(kAssocObjectKey));
                 if (!table) {
-                    table = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsStrongMemory];
+                    table = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality valueOptions:NSPointerFunctionsStrongMemory];
                     objc_setAssociatedObject(self, (__bridge const void *)(kAssocObjectKey), table, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 }                                                                                                                                                                       
             }
