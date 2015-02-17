@@ -27,6 +27,12 @@
 @interface NSOrderedSet (LGAAdditions)<LGACollectionTransitiveHash>
 
 /**
+ * @return a new ordered set that corresponds to the receiver minus elements of orderedSet
+ * @param orderedSet cannot be nil
+ */
+- (NSMutableOrderedSet*)lga_mutableOrderedSetWithMinusOrderedSet:(NSOrderedSet*)orderedSet;
+
+/**
  * @return a hash computed with hash of all elements in the ordered set.
  * @discussion if an element responds to lga_transitiveHash,
  * the value returned returned by lga_transitiveHash is integrated

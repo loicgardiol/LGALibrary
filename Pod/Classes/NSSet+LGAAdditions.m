@@ -24,6 +24,15 @@
 
 @implementation NSSet (LGAAdditions)
 
+- (NSMutableSet*)lga_mutableSetWithMinusSet:(NSSet*)set {
+    if (![set isKindOfClass:[NSSet class]]) {
+        [NSException raise:@"Illegal argument" format:@"set cannot be nil and must be of class NSSet"];
+    }
+    NSMutableSet* mSelf = [self mutableCopy];
+    [mSelf minusSet:set];
+    return mSelf;
+}
+
 - (NSUInteger)lga_transitiveHash {
     static NSUInteger const kPrime = 31;
     static SEL transHashSelector = nil;

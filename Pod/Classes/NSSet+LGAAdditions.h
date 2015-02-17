@@ -27,6 +27,12 @@
 @interface NSSet (LGAAdditions)<LGACollectionTransitiveHash>
 
 /**
+ * @return a mutable set that corresponds to the receiver minus elements of set
+ * @param set cannot be nil
+ */
+- (NSMutableSet*)lga_mutableSetWithMinusSet:(NSSet*)set;
+
+/**
  * @return a hash computed with hash of all elements in the set.
  * @discussion if an element responds to lga_transitiveHash,
  * the value returned returned by lga_transitiveHash is integrated
