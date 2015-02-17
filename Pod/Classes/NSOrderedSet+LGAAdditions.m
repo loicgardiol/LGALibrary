@@ -33,6 +33,15 @@
     return mSelf;
 }
 
+- (NSMutableOrderedSet*)lga_mutableOrderedSetWithMinusSet:(NSSet*)set {
+    if (![set isKindOfClass:[NSSet class]]) {
+        [NSException raise:@"Illegal argument" format:@"set cannot be nil and must be of class NSSet"];
+    }
+    NSMutableOrderedSet* mSelf = [self mutableCopy];
+    [mSelf minusSet:set];
+    return mSelf;
+}
+
 - (NSUInteger)lga_transitiveHash {
     static NSUInteger const kPrime = 31;
     static SEL transHashSelector = nil;
