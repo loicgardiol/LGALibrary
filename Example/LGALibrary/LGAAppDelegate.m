@@ -8,13 +8,49 @@
 
 #import "LGAAppDelegate.h"
 
+#import "NSNotificationCenter+LGAAdditions.h"
+
+//static NSString* kNotif1Name = @"test1";
+//static NSString* kNotif2Name = @"test2";
+
 @implementation LGAAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    /*[[NSNotificationCenter defaultCenter] lga_addObserver:self name:kNotif1Name object:nil block:^(NSNotification *notif) {
+        NSLog(@"notif test new 1");
+    }];
+    [[NSNotificationCenter defaultCenter] lga_addObserver:self name:kNotif2Name object:nil block:^(NSNotification *notif) {
+        NSLog(@"notif test new 2");
+    }];
+    [[NSNotificationCenter defaultCenter] lga_addObserver:self name:kNotif1Name object:nil block:^(NSNotification *notif) {
+        NSLog(@"notif test new 1 2");
+    }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(print) name:kNotif1Name object:nil];
+    id opaqueObserver = [[NSNotificationCenter defaultCenter] addObserverForName:kNotif2Name object:nil queue:nil usingBlock:^(NSNotification *note) {
+        NSLog(@"notif 2 bloxk");
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotif2Name object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:opaqueObserver];
+    });
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(test) userInfo:nil repeats:YES];*/
+    
     return YES;
 }
+
+/*- (void)print {
+    NSLog(@"notif 1 selector");
+}
+
+- (void)test {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotif1Name object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotif2Name object:nil];
+}*/
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
