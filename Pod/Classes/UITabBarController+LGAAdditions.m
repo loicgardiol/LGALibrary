@@ -35,7 +35,6 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self lga_swizzleMethodWithOriginalSelector:@selector(viewDidLayoutSubviews) withSwizzledSelector:@selector(lga_viewDidLayoutSubviews) isClassMethod:NO];
         [self lga_swizzleMethodWithOriginalSelector:@selector(bottomLayoutGuide) withSwizzledSelector:@selector(lga_bottomLayoutGuide) isClassMethod:NO];
     });
 }
@@ -58,11 +57,6 @@ static NSString* const kTabBarHidden = @"lga_TabBarHidden";
 }
 
 #pragma mark - UIViewController overrides
-
-- (void)lga_viewDidLayoutSubviews {
-    [self lga_viewDidLayoutSubviews]; //calling original implementation
-    [self setLga_TabBarHidden:self.lga_TabBarHidden animated:NO force:YES]; //make sure tab bar is in the hidden state we want
-}
 
 - (id<UILayoutSupport>)lga_bottomLayoutGuide {
     if (self.lga_TabBarHidden) {
