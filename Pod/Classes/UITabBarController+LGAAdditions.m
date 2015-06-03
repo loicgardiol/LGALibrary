@@ -28,12 +28,15 @@
 
 #import <objc/runtime.h>
 
+#import "LGALayoutGuide.h"
+
 @implementation UITabBarController (LGAAdditions)
 
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [self lga_swizzleMethodWithOriginalSelector:@selector(viewDidLayoutSubviews) withSwizzledSelector:@selector(lga_viewDidLayoutSubviews) isClassMethod:NO];
+        [self lga_swizzleMethodWithOriginalSelector:@selector(bottomLayoutGuide) withSwizzledSelector:@selector(lga_bottomLayoutGuide) isClassMethod:NO];
     });
 }
 
@@ -61,6 +64,14 @@ static NSString* const kTabBarHidden = @"lga_TabBarHidden";
     [self setLga_TabBarHidden:self.lga_TabBarHidden animated:NO force:YES]; //make sure tab bar is in the hidden state we want
 }
 
+- (id<UILayoutSupport>)lga_bottomLayoutGuide {
+    if (self.lga_TabBarHidden) {
+        return [LGALayoutGuide layoutGuideWithLength:0.0];
+    } else {
+        return [self lga_bottomLayoutGuide]; //calling original implementation
+    }
+}
+
 #pragma mark - Private
 
 - (void)setLga_TabBarHidden:(BOOL)hidden animated:(BOOL)animated force:(BOOL)force {
@@ -71,6 +82,8 @@ static NSString* const kTabBarHidden = @"lga_TabBarHidden";
     CGFloat offsetY = self.tabBar.frame.size.height * (hidden ? 1.0 : -1.0);
     [UIView animateWithDuration:animated ? 0.25 : 0.0 animations:^{
         self.tabBar.frame = CGRectOffset(self.tabBar.frame, 0, offsetY);
+    } completion:^(BOOL finished) {
+        [self.view setNeedsLayout];
     }];
 }
 
