@@ -42,4 +42,10 @@
  */
 - (instancetype)initWithMapView:(MKMapView *)mapView;
 
+/**
+ * Executes as if user tapped on the button. 
+ * Handles all the permissions if necessary.
+ */
+- (void)simulateTap;
+
 @end

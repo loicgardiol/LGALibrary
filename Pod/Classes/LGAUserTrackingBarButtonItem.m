@@ -74,6 +74,14 @@
     return self;
 }
 
+#pragma mark - Public
+
+- (void)simulateTap {
+    [self selfTapped];
+}
+
+#pragma mark - Private
+
 - (void)selfTapped {
     CLAuthorizationStatus currentAuthStatus = [CLLocationManager authorizationStatus];
     if (currentAuthStatus == kCLAuthorizationStatusDenied || currentAuthStatus == kCLAuthorizationStatusRestricted) {
