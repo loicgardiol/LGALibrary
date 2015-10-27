@@ -45,4 +45,18 @@
     return NO;
 }
 
+- (BOOL)lga_forceToucheAvailable {
+    return [self respondsToSelector:@selector(traitCollection)]
+    && [self.traitCollection respondsToSelector:@selector(forceTouchCapability)]
+    && self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
+}
+
+- (id<UIViewControllerPreviewing> _Nullable)lga_registerForPreviewingIfSupportedWithDelegate:(id<UIViewControllerPreviewingDelegate> _Nonnull)delegate sourceView:(UIView * _Nonnull)sourceView {
+    if (!self.lga_forceToucheAvailable) {
+        return nil;
+    }
+    return [self registerForPreviewingWithDelegate:delegate sourceView:sourceView];
+}
+
+
 @end
