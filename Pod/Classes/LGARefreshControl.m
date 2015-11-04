@@ -93,12 +93,33 @@
     }
 }
 
+- (void)startRefreshingSilently {
+    if (self.showsDefaultRefreshingMessage) {
+        [self startRefreshingSilentlyWithMessage:NSLocalizedStringFromTable(@"Refreshing", @"LGALibrary", nil)];
+    } else {
+        [self startRefreshingSilentlyWithMessage:@""];
+    }
+}
+
 - (void)startRefreshingWithMessage:(NSString*)message {
     [self.showHideTimer invalidate];
     self.message = message;
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
         [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES]; //inset.top already contains normal top inset + refresh control height
+    }
+}
+
+- (void)startRefreshingSilentlyWithMessage:(NSString*)message {
+    [self.showHideTimer invalidate];
+    self.message = message;
+    if (!self.refreshControl.isRefreshing) {
+        [self.refreshControl beginRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y+self.refreshControl.frame.size.height) animated:NO]; //inset.top already contains normal top inset + refresh control height
+            self.refreshControl.hidden = YES;
+        });
+        
     }
 }
 
