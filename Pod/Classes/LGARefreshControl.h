@@ -54,9 +54,8 @@
  * Trigger refresh start/end manually
  */
 - (void)startRefreshing;
-- (void)startRefreshingSilently;
 - (void)startRefreshingWithMessage:(NSString*)message;
-- (void)startRefreshingSilentlyWithMessage:(NSString*)message;
+- (void)startRefreshingSilently:(BOOL)silently withMessage:(NSString*)message;
 - (void)endRefreshing;
 - (void)endRefreshingAndMarkSuccessful;
 - (void)endRefreshingWithDelay:(NSTimeInterval)delay indicateErrorWithMessage:(NSString*)message;
