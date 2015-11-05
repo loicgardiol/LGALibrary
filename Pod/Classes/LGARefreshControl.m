@@ -103,10 +103,7 @@
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
         if (silently) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y+self.refreshControl.frame.size.height) animated:NO]; //inset.top already contains normal top inset + refresh control height
-                self.refreshControl.hidden = YES;
-            });
+            self.refreshControl.hidden = YES;
         } else {
             [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
         }
