@@ -27,6 +27,6 @@
 /**
  * @return YES if the URL scheme is http or https, NO otherwise
  */
-@property (nonatomic, readonly) BOOL isWebURL;
+@property (nonatomic, readonly) BOOL lga_isWebURL;
 
 @end

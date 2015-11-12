@@ -26,7 +26,7 @@
 
 @implementation NSURL (LGAAdditions)
 
-- (BOOL)isWebURL {
+- (BOOL)lga_isWebURL {
     return ([self.scheme.lowercaseString isEqualToString:@"http"] || [self.scheme.lowercaseString isEqualToString:@"https"]);
 }
 
