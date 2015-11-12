@@ -46,6 +46,7 @@
     [super viewDidLoad];
     self.lgaRefreshControl = [[LGARefreshControl alloc] initWithTableViewController:self refreshedDataIdentifier:@"list_name"];
     [self.lgaRefreshControl setTarget:self selector:@selector(refresh)];
+    [self refresh];
 }
 
 #pragma mark - Actions
@@ -54,14 +55,16 @@
     /*
      * Will show default loading message (Loading...) under the spinning wheel
      */
-    [self.lgaRefreshControl startRefreshing];
+    //[self.lgaRefreshControl startRefreshing];
+    
+    [self.lgaRefreshControl startRefreshingSilently:YES withMessage:@"test"];
     
     /*
      * Start your request... assuming requestFinishedWithSuccess: called back on finish
      * Here using timer for the example.
      */
     __weak __typeof(self) welf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [welf requestFinishedWithSuccess:YES];
     });
 }

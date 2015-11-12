@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3B653315E8684E283B9D67E7'
+               BlueprintIdentifier = '81FC1E317F87CAF4990B9690'
                BlueprintName = 'LGALibrary'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libLGALibrary.a'>
