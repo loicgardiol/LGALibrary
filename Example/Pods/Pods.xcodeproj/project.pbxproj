@@ -23,7 +23,7 @@
 		152058F98E6E8B08CC19EF3F6FC337B8 /* EXPMatchers+beInTheRangeOf.h in Headers */ = {isa = PBXBuildFile; fileRef = ECFA37DB223938F733D2D386C425521D /* EXPMatchers+beInTheRangeOf.h */; };
 		15AB0F7509859CE212C433B2FE7A4CDF /* EXPMatchers+FBSnapshotTest.h in Headers */ = {isa = PBXBuildFile; fileRef = 56D5AEBDAC5F8CB1507E3C207E9489E8 /* EXPMatchers+FBSnapshotTest.h */; };
 		15CC4E22198D86341702CCAECD83C4D3 /* EXPMatchers+match.m in Sources */ = {isa = PBXBuildFile; fileRef = A666133657F629779FB0537B8C0EEF44 /* EXPMatchers+match.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1770E38ECAEF34CD7622ACCB6C94FDE5 /* NSObject+LGAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A93544F7608022BEB59081EA803C76F /* NSObject+LGAAdditions.m */; };
+		1770E38ECAEF34CD7622ACCB6C94FDE5 /* NSObject+LGAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A93544F7608022BEB59081EA803C76F /* NSObject+LGAAdditions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc-exceptions"; }; };
 		17A248FC7A8C4CED34B2AB00EED41CFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13474EFBAA435F2DEB443782C14F537D /* Foundation.framework */; };
 		18F5ED7DAFF0C9D4C59B17BC901761F5 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4324CB0197ADDFD8CFBD4F101CDB1419 /* UIRefreshControl+AFNetworking.m */; };
 		1918E4EC66351DD4F4F768C68785B4D8 /* EXPFloatTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5745F8CBA3C4B9CC7FC47CDDC5053BD6 /* EXPFloatTuple.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -125,7 +125,7 @@
 		94042F877E1457A041D7CA529B1DF9CE /* EXPMatchers+haveCountOf.m in Sources */ = {isa = PBXBuildFile; fileRef = E2ED6AAB071EA389F344C2ED262A7BF5 /* EXPMatchers+haveCountOf.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		94D7024F1C0C17E9255E8E2A11C97E0D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13474EFBAA435F2DEB443782C14F537D /* Foundation.framework */; };
 		95B0919B7741D54A47839F511F3D85BF /* EXPMatchers+postNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2ED26570DF80A45D5DA2B74EA8300C /* EXPMatchers+postNotification.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		95C2C4B1C803340E0AD1ED1315D83E02 /* LGAEditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E17C22EC97C0655E2046E3EFB59633 /* LGAEditableTableViewCell.m */; };
+		95C2C4B1C803340E0AD1ED1315D83E02 /* LGAEditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E17C22EC97C0655E2046E3EFB59633 /* LGAEditableTableViewCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc-exceptions"; }; };
 		95E193B263EF8EC22527AACD8CE21D11 /* EXPMatchers+beCloseTo.h in Headers */ = {isa = PBXBuildFile; fileRef = BE4E50F48E10556044C365DC90FDD878 /* EXPMatchers+beCloseTo.h */; };
 		95F4EEE1CAEC9C939E8A062A61AC4507 /* EXPExpect.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E34D1E8CEF02EB5ADD28D0306CD6C3 /* EXPExpect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		98C1E3597075C1699590611FA8E0665F /* SPTExampleGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 38EE976C91C8A7DF6E8F7D88FE636690 /* SPTExampleGroup.h */; };
@@ -220,7 +220,7 @@
 		F4F48C6EE95CB6B412EE7FCBD0A2716D /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E02F4D92AA81C84797B7A543CACBCC /* UIProgressView+AFNetworking.m */; };
 		F5B2C24CEB85C30A488D82E2E1B9A8D3 /* EXPBlockDefinedMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = D75D8FF2C4C808EF3D425FD9D53E0BD5 /* EXPBlockDefinedMatcher.h */; };
 		F6BE1B92C197096625930952B3592113 /* UIImage+Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FDEB11C619833E87D241A09D5613771 /* UIImage+Diff.h */; };
-		F782D58D19243975909D86D166BE6576 /* UIScrollView+LGAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC263AE17A327CA367D5408FE86528D /* UIScrollView+LGAAdditions.m */; };
+		F782D58D19243975909D86D166BE6576 /* UIScrollView+LGAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC263AE17A327CA367D5408FE86528D /* UIScrollView+LGAAdditions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc-exceptions"; }; };
 		F837B438B78F3366CA96A64F79284F61 /* EXPMatchers+beLessThanOrEqualTo.m in Sources */ = {isa = PBXBuildFile; fileRef = A8E43BC6BBFE037F64551717AB7F071B /* EXPMatchers+beLessThanOrEqualTo.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F86D105AC6BAA888762D891F3E75BE40 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7813E1AC30CD13659D1206A46A5E50AC /* MobileCoreServices.framework */; };
 		F9DC09072FDE42855779E11FB9B8056A /* EXPMatchers+beInstanceOf.h in Headers */ = {isa = PBXBuildFile; fileRef = 1996D49A628F5A760CF590DB212C8DDC /* EXPMatchers+beInstanceOf.h */; };
