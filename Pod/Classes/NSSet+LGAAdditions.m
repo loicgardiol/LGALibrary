@@ -43,7 +43,6 @@
 }
 
 - (NSUInteger)lga_transitiveHash {
-    static NSUInteger const kPrime = 31;
     static SEL transHashSelector = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -52,9 +51,9 @@
     
     NSUInteger result = 1;
     for (id element in self) {
-        result = kPrime * result + [element hash];
+        result ^= [element hash];
         if ([element respondsToSelector:transHashSelector]) {
-            result = kPrime * result + [element lga_transitiveHash];
+            result ^= [element lga_transitiveHash];
         }
     }
     return result;
