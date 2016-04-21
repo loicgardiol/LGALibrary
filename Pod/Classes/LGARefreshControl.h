@@ -27,6 +27,7 @@
 @interface LGARefreshControl : NSObject
 
 @property (nonatomic, weak, readonly) UITableViewController* tableViewController;
+@property (nonatomic, weak, readonly) UICollectionViewController* collectionViewController;
 @property (nonatomic, readonly, copy) NSString* refreshedDataIdentifier;
 @property (nonatomic, copy) UIColor* tintColor; //will be used for activitiy view and message default state color
 @property (nonatomic, strong) UIColor* errorMessageColor;
@@ -46,6 +47,12 @@
 - (id)initWithTableViewController:(UITableViewController*)tableViewController refreshedDataIdentifier:(NSString*)dataIdentifier;
 
 /**
+ * refreshedDataIdentifier will be use to save last refresh timestamp. Pass nil if you don't want to keep track of refresh date.
+ * See markRefreshSuccessful method for more explanations.
+ */
+- (id)initWithCollectionViewController:(UICollectionViewController*)collectionViewController refreshedDataIdentifier:(NSString*)dataIdentifier;
+
+/**
  * [target selector] will be called when user pulls to refresh
  */
 - (void)setTarget:(id)target selector:(SEL)selector;
@@ -62,7 +69,7 @@
 
 /**
  * Call this method just after endRefresh to signal that the last refresh was successful.
- * This will set the default text to "last refresh <date>". 
+ * This will set the default text to "last refresh <date>".
  * This feature is only supported if refreshedDataIdentifier was indicated at init.
  */
 - (void)markRefreshSuccessful;

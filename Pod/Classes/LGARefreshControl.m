@@ -28,10 +28,10 @@
 
 @interface LGARefreshControl ()
 
-@property (nonatomic, strong) UITableViewController* strongTableViewController; //used when init with tableview, should retain it
 @property (nonatomic, weak, readwrite) UITableViewController* tableViewController;
+@property (nonatomic, weak, readwrite) UICollectionViewController* collectionViewController;
 
-@property (nonatomic, readonly) UITableView* tableView;
+@property (nonatomic, readonly) UIScrollView* scrollView;
 @property (nonatomic, strong) UIRefreshControl* refreshControl;
 @property (nonatomic, weak) id target;
 @property (nonatomic) SEL selector;
@@ -74,6 +74,32 @@
     return self;
 }
 
+- (id)initWithCollectionViewController:(UICollectionViewController*)collectionViewController refreshedDataIdentifier:(NSString*)dataIdentifier {
+    self = [super init];
+    if (self) {
+        if (!collectionViewController) {
+            [NSException raise:@"Illegal argument" format:@"tableviewcontroller cannot be nil"];
+        }
+        if (dataIdentifier && dataIdentifier.length == 0) {
+            [NSException raise:@"Illegal argument" format:@"refreshedDataIdentifier cannot be of length 0 if not nil"];
+        }
+        
+        // Need to start monitoring, otherwise sharedManager.networkReachabilityStatus is wrong
+        // Bug in AFNetworkReachabilityManager ?
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+        
+        self.collectionViewController = collectionViewController;
+        self.refreshedDataIdentifier = dataIdentifier;
+        
+        _showsDefaultRefreshingMessage = YES;
+        self.errorMessageColor = [UIColor colorWithRed:0.827451 green:0.000000 blue:0.000000 alpha:1.0];
+        self.message = nil;
+        self.refreshControl = [UIRefreshControl new];
+        [collectionViewController.collectionView addSubview:self.refreshControl];
+    }
+    return self;
+}
+
 - (void)uiRefreshControlValueChanged {
     [self.target performSelectorOnMainThread:self.selector withObject:nil waitUntilDone:YES];
 }
@@ -105,7 +131,7 @@
         if (silently) {
             self.refreshControl.hidden = YES;
         } else {
-            [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, -self.scrollView.contentInset.top) animated:YES];
         }
     }
 }
@@ -127,8 +153,8 @@
     self.showHideTimer = [NSTimer scheduledTimerWithTimeInterval:delay target:self selector:@selector(endRefreshing) userInfo:nil repeats:NO];
 }
 
-- (UITableView*)tableView {
-    return self.tableViewController.tableView;
+- (UIScrollView*)scrollView {
+    return self.tableViewController.tableView ?: self.collectionViewController.collectionView;
 }
 
 - (NSDate*)lastSuccessfulRefreshDate {
@@ -202,7 +228,7 @@
         dateFormatter.dateStyle = NSDateFormatterNoStyle;
         [dateFormatter setDoesRelativeDateFormatting:NO];
         NSString* timeString = [dateFormatter stringFromDate:self.lastSuccessfulRefreshDate];
-       
+        
         attrString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@ %@", lastUpdateLocalized, dateString, timeString]];
     }
     if (self.tintColor) {
