@@ -95,7 +95,12 @@
         self.errorMessageColor = [UIColor colorWithRed:0.827451 green:0.000000 blue:0.000000 alpha:1.0];
         self.message = nil;
         self.refreshControl = [UIRefreshControl new];
-        [collectionViewController.collectionView addSubview:self.refreshControl];
+        
+        if ([collectionViewController.collectionView respondsToSelector:@selector(setRefreshControl:)]) {
+            collectionViewController.collectionView.refreshControl = self.refreshControl;
+        } else {
+            [collectionViewController.collectionView addSubview:self.refreshControl];
+        }
     }
     return self;
 }
