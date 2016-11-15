@@ -28,11 +28,11 @@ static NSString* const kBlockUserInfoKey = @"block";
 
 @implementation NSTimer (LGAAdditions)
 
-+ (NSTimer *)lga_scheduledTimerWithTimeInterval:(NSTimeInterval)interval block:(void (^)(NSTimer *timer))block {
++ (NSTimer *)lga_scheduledTimerWithTimeInterval:(NSTimeInterval)interval block:(void (^)())block {
     return [self lga_scheduledTimerWithTimeInterval:interval repeats:NO block:block];
 }
 
-+ (NSTimer *)lga_scheduledTimerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(void (^)(NSTimer *timer))block {
++ (NSTimer *)lga_scheduledTimerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(void (^)())block {
     if ([self respondsToSelector:@selector(scheduledTimerWithTimeInterval:repeats:block:)]) {
         return [self scheduledTimerWithTimeInterval:interval repeats:repeats block:block];
     }
@@ -40,9 +40,9 @@ static NSString* const kBlockUserInfoKey = @"block";
 }
 
 + (void)lga_fireTimer:(NSTimer*)timer {
-    void(^block)(NSTimer*) = timer.userInfo[kBlockUserInfoKey];
+    void(^block)() = timer.userInfo[kBlockUserInfoKey];
     if (block) {
-        block(timer);
+        block();
     }
 }
 
