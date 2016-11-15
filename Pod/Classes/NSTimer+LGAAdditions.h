@@ -27,8 +27,13 @@
 @interface NSTimer (LGAAdditions)
 
 /**
+ * Same as next with repeats set to NO
+ */
++ (NSTimer* _Nonnull)lga_scheduledTimerWithTimeInterval:(NSTimeInterval)interval block:(nonnull void (^)(NSTimer *timer))block;
+
+/**
  * If method + scheduledTimerWithTimeInterval:repeats:block: is available in platform, directly calls it
  */
-+ (NSTimer *)lga_scheduledTimerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(void (^)(NSTimer *timer))block;
++ (NSTimer* _Nonnull)lga_scheduledTimerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(nonnull void (^)(NSTimer *timer))block;
 
 @end
