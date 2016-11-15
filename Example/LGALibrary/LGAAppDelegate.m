@@ -10,6 +10,8 @@
 
 #import "NSNotificationCenter+LGAAdditions.h"
 
+#import "NSTimer+LGAAdditions.h"
+
 //static NSString* kNotif1Name = @"test1";
 //static NSString* kNotif2Name = @"test2";
 
@@ -39,6 +41,8 @@
     });
     
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(test) userInfo:nil repeats:YES];*/
+    
+    
     
     return YES;
 }

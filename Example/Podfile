@@ -1,3 +1,4 @@
+source "https://github.com/CocoaPods/Old-Specs"
 target 'LGALibrary', :exclusive => true do
   pod "LGALibrary", :path => "../"
 end
