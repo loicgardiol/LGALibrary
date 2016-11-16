@@ -32,6 +32,6 @@
  * by the fact that the observer is defined by the argument that you pass and not an opaque returned one.
  * Use the standard removeObserver:... methods to unregister from notifications.
  */
-- (void)lga_addObserver:(id)observer name:(NSString*)notificationName object:(id)object block:(void (^)(NSNotification* notif))block;
+//- (void)lga_addObserver:(id)observer name:(NSString*)notificationName object:(id)object block:(void (^)(NSNotification* notif))block;
 
 @end

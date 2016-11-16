@@ -56,13 +56,13 @@
 
 @implementation NSNotificationCenter (LGAAdditions)
 
-+ (void)load {
+/*+ (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [self lga_swizzleMethodWithOriginalSelector:@selector(removeObserver:) withSwizzledSelector:@selector(lga_removeObserver:) isClassMethod:NO];
         [self lga_swizzleMethodWithOriginalSelector:@selector(removeObserver:name:object:) withSwizzledSelector:@selector(lga_removeObserver:name:object:) isClassMethod:NO];
     });
-}
+}*/
 
 #pragma mark - Public
 
