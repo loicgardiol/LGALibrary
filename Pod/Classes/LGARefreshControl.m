@@ -26,6 +26,34 @@
 
 #import <AFNetworking/AFNetworking.h>
 
+@interface LGAUIRefreshControl : UIRefreshControl
+
+@property (nonatomic, weak) UIScrollView* scrollView;
+
+@end
+@implementation LGAUIRefreshControl
+
+- (instancetype)initWithScrollView:(UIScrollView*)scrollView {
+    self = [super init];
+    if (self) {
+        self.scrollView = scrollView;
+    }
+    return self;
+}
+
+- (void)willMoveToWindow:(UIWindow *)newWindow {
+    [super willMoveToWindow:newWindow];
+    if (self.isRefreshing && newWindow) {
+        CGPoint offset = self.scrollView.contentOffset;
+        [self endRefreshing];
+        [self beginRefreshing];
+        self.scrollView.contentOffset = offset;
+    }
+}
+
+@end
+
+
 @interface LGARefreshControl ()
 
 @property (nonatomic, weak, readwrite) UITableViewController* tableViewController;
@@ -64,7 +92,7 @@
         _showsDefaultRefreshingMessage = YES;
         self.errorMessageColor = [UIColor colorWithRed:0.827451 green:0.000000 blue:0.000000 alpha:1.0];
         if ([self.tableViewController respondsToSelector:@selector(refreshControl)]) { //>= iOS 6
-            self.refreshControl = [[UIRefreshControl alloc] init];;
+            self.refreshControl = [[LGAUIRefreshControl alloc] initWithScrollView:self.scrollView];;
         } else {
             [NSException raise:@"Unsupported platform" format:@"LGRefreshControl requires iOS 6 or higher"];
         }
@@ -94,7 +122,7 @@
         _showsDefaultRefreshingMessage = YES;
         self.errorMessageColor = [UIColor colorWithRed:0.827451 green:0.000000 blue:0.000000 alpha:1.0];
         self.message = nil;
-        self.refreshControl = [UIRefreshControl new];
+        self.refreshControl = [[LGAUIRefreshControl alloc] initWithScrollView:self.scrollView];
         
         if ([collectionViewController.collectionView respondsToSelector:@selector(setRefreshControl:)]) {
             collectionViewController.collectionView.refreshControl = self.refreshControl;
