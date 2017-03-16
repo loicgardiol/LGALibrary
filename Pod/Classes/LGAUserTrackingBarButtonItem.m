@@ -26,6 +26,8 @@
 
 #import "LGAUtils.h"
 
+#import "UIView+LGAAdditions.h"
+
 @interface LGAUserTrackingBarButtonItem ()<CLLocationManagerDelegate>
 
 @property (nonatomic) CLAuthorizationStatus requiredAuthStatus;
@@ -85,8 +87,12 @@
 - (void)selfTapped {
     CLAuthorizationStatus currentAuthStatus = [CLLocationManager authorizationStatus];
     if (currentAuthStatus == kCLAuthorizationStatusDenied || currentAuthStatus == kCLAuthorizationStatusRestricted) {
-        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTable(@"LocationAccessDenied", @"LGALibrary", nil) message:NSLocalizedStringFromTable(@"GrantAccessToLocationExplanations", @"LGALibrary", nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTable(@"OK", @"LGALibrary", nil) otherButtonTitles:nil];
-        [alertView show];
+        UIViewController* viewController = [self.mapView lga_parentViewController];
+        if (viewController) {
+            UIAlertController* alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"LocationAccessDenied", @"LGALibrary", nil) message:NSLocalizedStringFromTable(@"GrantAccessToLocationExplanations", @"LGALibrary", nil) preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"OK", @"LGALibrary", nil) style:UIAlertActionStyleDefault handler:nil]];
+            [viewController presentViewController:alertController animated:YES completion:nil];
+        }
         return;
     }
     if (currentAuthStatus == kCLAuthorizationStatusNotDetermined) {
