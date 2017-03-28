@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "LGALibrary"
-  s.version          = "1.4"
+  s.version          = "1.5"
   s.summary          = "A collection of utilities and categories."
   s.description      = <<-DESC
                         A collection of utilities and categories for iOS development.
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/loicgardiol/LGALibrary.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.platform     = :ios, '8.4'
+  s.platform     = :ios, '9.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes'
