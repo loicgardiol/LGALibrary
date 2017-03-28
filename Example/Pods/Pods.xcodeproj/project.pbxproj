@@ -45,7 +45,6 @@
 		5A19790F49DF8EED54F399FCA1090FE8 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A08CB06F8B1A280FEF15553E0829EAA7 /* AFNetworkReachabilityManager.m */; };
 		5D2B77FC0F314C62B3126FBB4741B9FA /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 58854F1033A458A77F32268E470938CF /* AFURLSessionManager.h */; };
 		5D79CA3FC9337D2B13351B8812230E03 /* UIButton+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C37098B04906FF981BBBAA24712820 /* UIButton+AFNetworking.m */; };
-		5E0A9D00E9AD420796865B118110CBCF /* LGALayoutGuide.h in Headers */ = {isa = PBXBuildFile; fileRef = 27A55D6179BD21ED190F4F3F14C55776 /* LGALayoutGuide.h */; };
 		62AB4883999F93594C2EA0569AAC3AFF /* UIImage+LGAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C721A62BF756858AFA91215FA63BB88 /* UIImage+LGAAdditions.m */; };
 		6470DDAF94B59F89C6D6FD56799072D5 /* UIViewController+LGAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2B524AA72C9EA8BF5C263260303B1C /* UIViewController+LGAAdditions.m */; };
 		68064894C01C95CC45C21F3FC0C5258D /* NSMapTable+LGAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 418FF53298B35F45E7353DB298A1EE17 /* NSMapTable+LGAAdditions.m */; };
@@ -76,7 +75,6 @@
 		B4B43C6963D0650AC28AB1D3C7570AAB /* AFImageDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 09ADD3F04E357E12C27C5907A46C71E5 /* AFImageDownloader.h */; };
 		B4FC3969A7CD1228766A00170AC8CA8F /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7661B3B14DA561898367EF6CEA8E611D /* UIActivityIndicatorView+AFNetworking.m */; };
 		BCC6B0E96ADB1587024B32895BAFE22F /* Pods-LGALibrary-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29B9823D9E9B928D336AF1AC57A /* Pods-LGALibrary-dummy.m */; };
-		BD3C5FA90CF7CC2B887D509BD0715EFE /* LGALayoutGuide.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F23C1C9ED58CD12998AF61CBAEF71 /* LGALayoutGuide.m */; };
 		C05E77733F16B0F0FEEA8FB599514BAD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9CD423F6908A5A9AA6D637073D4ECF7 /* MapKit.framework */; };
 		C552114A73407A022616940BE1C03CBC /* NSNotificationCenter+LGAAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4155F0AA7573B0E3D3BC40A8D14F311D /* NSNotificationCenter+LGAAdditions.h */; };
 		C6515973E8BCE49CBBE667408ED73782 /* MKMapView+LGAAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B3B639BA016BFE874EE0524401F4D9C /* MKMapView+LGAAdditions.h */; };
@@ -146,7 +144,6 @@
 		1EEB580FF653625EA8B47E0382A0DA3F /* NSOrderedSet+LGAAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+LGAAdditions.h"; sourceTree = "<group>"; };
 		202C53B9E41FB554215CDD96D3EE4334 /* LGAEditableTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGAEditableTableViewCell.m; sourceTree = "<group>"; };
 		24DF7B2CEF4FC301ADB002BB232497D0 /* UIButton+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+AFNetworking.h"; path = "UIKit+AFNetworking/UIButton+AFNetworking.h"; sourceTree = "<group>"; };
-		27A55D6179BD21ED190F4F3F14C55776 /* LGALayoutGuide.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LGALayoutGuide.h; sourceTree = "<group>"; };
 		2831B80D0933D8A015D809EFFFAC39E5 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLRequestSerialization.h; path = AFNetworking/AFURLRequestSerialization.h; sourceTree = "<group>"; };
 		2B44FD9E08213709C01F17288AACE202 /* LGAUserTrackingBarButtonItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGAUserTrackingBarButtonItem.m; sourceTree = "<group>"; };
 		2C01590C310B51843D633CF5161D1E44 /* Pods-LGALibrary-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LGALibrary-resources.sh"; sourceTree = "<group>"; };
@@ -167,7 +164,6 @@
 		4615CA7B6EFE59C6F6844ED4BCC8EEBF /* LGALibrary-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LGALibrary-prefix.pch"; sourceTree = "<group>"; };
 		47F6C114462188DDD487EA1070FB324B /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		4863433A2E7FE597D98A5B0E424D5CAF /* UIGestureRecognizer+LGAAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+LGAAdditions.m"; sourceTree = "<group>"; };
-		4A3F23C1C9ED58CD12998AF61CBAEF71 /* LGALayoutGuide.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGALayoutGuide.m; sourceTree = "<group>"; };
 		53F4D29B9823D9E9B928D336AF1AC57A /* Pods-LGALibrary-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LGALibrary-dummy.m"; sourceTree = "<group>"; };
 		5682CA7E6DCB68E10457165DE4E5E635 /* AFAutoPurgingImageCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFAutoPurgingImageCache.h; path = "UIKit+AFNetworking/AFAutoPurgingImageCache.h"; sourceTree = "<group>"; };
 		58854F1033A458A77F32268E470938CF /* AFURLSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLSessionManager.h; path = AFNetworking/AFURLSessionManager.h; sourceTree = "<group>"; };
@@ -434,8 +430,6 @@
 				FB55E9DFA766FE36111AD51DFAF3CFDC /* LGACollectionTransitiveHash.h */,
 				EB09C990BD582471A0ACFAE128A439EB /* LGAEditableTableViewCell.h */,
 				202C53B9E41FB554215CDD96D3EE4334 /* LGAEditableTableViewCell.m */,
-				27A55D6179BD21ED190F4F3F14C55776 /* LGALayoutGuide.h */,
-				4A3F23C1C9ED58CD12998AF61CBAEF71 /* LGALayoutGuide.m */,
 				94BC99C44794CDE1FE8DA3ADF91BD709 /* LGARefreshControl.h */,
 				7FC7C99C3B3A06A541DCD8088DC4EF4E /* LGARefreshControl.m */,
 				F110BED6D637665285C13DE4FA13577B /* LGAUserTrackingBarButtonItem.h */,
@@ -598,7 +592,6 @@
 			files = (
 				CF8D338417D026377B14C73C4687B2BA /* LGACollectionTransitiveHash.h in Headers */,
 				3E3C267F0F62121DC6DBBAF207A1B450 /* LGAEditableTableViewCell.h in Headers */,
-				5E0A9D00E9AD420796865B118110CBCF /* LGALayoutGuide.h in Headers */,
 				F8F275084268E28326127E6DAE851002 /* LGARefreshControl.h in Headers */,
 				FBEE988A8EE57325617057E976557A3D /* LGAUserTrackingBarButtonItem.h in Headers */,
 				D8948AE3D2BEDC768E7B02FFF73C189E /* LGAUtils.h in Headers */,
@@ -724,7 +717,6 @@
 			files = (
 				AA0AA526E6DD66EB6514ACB729B261B5 /* LGAEditableTableViewCell.m in Sources */,
 				323D22F51E7AC0FD00CFB0FB /* UIView+LGAAdditions.m in Sources */,
-				BD3C5FA90CF7CC2B887D509BD0715EFE /* LGALayoutGuide.m in Sources */,
 				56D328E6D653C2D4B8DC5221DCD8A8CD /* LGALibrary-dummy.m in Sources */,
 				48B2B86AC2D7B1C41E29D233A7EBA800 /* LGARefreshControl.m in Sources */,
 				2965A00A4448ADC7AD316EE07D598A61 /* LGAUserTrackingBarButtonItem.m in Sources */,
