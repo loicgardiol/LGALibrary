@@ -2,11 +2,11 @@
 "OK" = "OK";
 
 //LGARefreshControl
-"LastUpdate" = "Last update";
-"LastUpdateNever" = "Last update: never";
-"LastUpdateJustNow" = "Updated just now";
+"LastUpdate" = "Last Update";
+"LastUpdateNever" = "Last Update: Never";
+"LastUpdateJustNow" = "Updated Just Now";
 "Refreshing" = "Refreshing...";
 
 //LGAUserTrackingBarButtonItem
-"LocationAccessDenied" = "Cannot access Location";
+"LocationAccessDenied" = "Cannot Access Location";
 "GrantAccessToLocationExplanations" = "Please grant access to Location under Settings > Privay > Location";
