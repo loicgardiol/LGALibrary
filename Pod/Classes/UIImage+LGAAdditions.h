@@ -26,21 +26,21 @@
 
 /**
  * @return a new image that is resized *while respecting proportions* and cropeed to *fill* size
- * @param applyDeviceScreenMultiplyingFactor if YES, size.width and size.height are doubled
+ * @param applyFactor if YES, size.width and size.height are doubled
  * (no matter what is the value – kept the in the image – of self.scale)
  */
 - (UIImage*)imageByScalingAndCroppingForSize:(CGSize)targetSize applyDeviceScreenMultiplyingFactor:(BOOL)applyFactor;
 
 /**
  * @return a new image that is resized to size (NO constraint on respecting proportions)
- * @param applyDeviceScreenMultiplyingFactor if YES, size.width and size.height are doubled
+ * @param applyFactor if YES, size.width and size.height are doubled
  * (no matter what is the value – kept the in the image – of self.scale)
  */
 - (UIImage *)imageScaledToSize:(CGSize)size applyDeviceScreenMultiplyingFactor:(BOOL)applyFactor;
 
 /**
  * @return a new image that is resized *while respecting proportions* to fit size
- * @param applyDeviceScreenMultiplyingFactor if YES, size.width and size.height are doubled
+ * @param applyFactor if YES, size.width and size.height are doubled
  * (no matter what is the value – kept the in the image – of self.scale)
  */
 - (UIImage*)imageScaledToFitSize:(CGSize)size applyDeviceScreenMultiplyingFactor:(BOOL)applyFactor;

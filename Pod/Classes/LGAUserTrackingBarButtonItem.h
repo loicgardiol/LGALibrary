@@ -31,7 +31,7 @@
  * but automatically handles the request to OS (if necessary) to get localization authorization.
  * @discussion since iOS 8, -[CLLocationManager requestWhenInUseAuthorization] or -[CLLocationManager requestAlwaysAuthorization]
  * is required prior to locate user on the map. This class takes care of it.
- * @param requiredAuthorizationStatus can be either kCLAuthorizationStatusAuthorizedAlways or kCLAuthorizationStatusAuthorizedWhenInUse on iOS 8.
+ * @param requiredAuthStatus can be either kCLAuthorizationStatusAuthorizedAlways or kCLAuthorizationStatusAuthorizedWhenInUse on iOS 8.
  * The parameter is ignored on iOS 7.
  */
 - (instancetype)initWithMapView:(MKMapView *)mapView requiredAuthorizationStatus:(CLAuthorizationStatus)requiredAuthStatus;
