@@ -33,6 +33,10 @@
 @property (nonatomic, readonly) BOOL lga_isInSplitViewControllerMasterHierarchy;
 
 /**
+ * @return all children view controllers of self, recursively.
+ */
+@property (nonatomic, readonly, nonnull) NSArray<UIViewController*>* lga_recursiveChildViewControllers;
+/**
  * @return YES if force touch API is supported and available in self
  */
 @property (nonatomic, readonly) BOOL lga_forceToucheAvailable;

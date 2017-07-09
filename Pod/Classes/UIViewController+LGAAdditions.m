@@ -34,15 +34,21 @@
     if (masterViewController == self) {
         return YES;
     }
-    if ([masterViewController isKindOfClass:[UINavigationController class]]) {
-        NSArray* viewControllers = [(UINavigationController*)masterViewController viewControllers];
-        return [viewControllers containsObject:self];
+    return [masterViewController.lga_recursiveChildViewControllers containsObject:self];
+}
+
+- (NSArray<UIViewController*>*)lga_recursiveChildViewControllers {
+    NSMutableArray* buffer = [NSMutableArray array];
+    [self _lga_fillRecursiveChildViewControllersWithBuffer:buffer];
+    return buffer;
+}
+
+// Private
+- (void)_lga_fillRecursiveChildViewControllersWithBuffer:(NSMutableArray*)buffer {
+    for (UIViewController* child in self.childViewControllers) {
+        [buffer addObject:child];
+        [child _lga_fillRecursiveChildViewControllersWithBuffer:buffer];
     }
-    if ([masterViewController isKindOfClass:[UITabBarController class]]) {
-        NSArray* viewControllers = [(UITabBarController*)masterViewController viewControllers];
-        return [viewControllers containsObject:self];
-    }
-    return NO;
 }
 
 - (BOOL)lga_forceToucheAvailable {
