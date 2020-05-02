@@ -124,7 +124,7 @@
         self.message = nil;
         self.refreshControl = [[LGAUIRefreshControl alloc] initWithScrollView:self.scrollView];
         
-        if ([collectionViewController.collectionView respondsToSelector:@selector(setRefreshControl:)]) {
+        if (@available(iOS 10.0, *)) {
             collectionViewController.collectionView.refreshControl = self.refreshControl;
         } else {
             [collectionViewController.collectionView addSubview:self.refreshControl];
