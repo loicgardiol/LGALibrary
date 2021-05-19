@@ -50,13 +50,19 @@
     
     UITouch* touch = [event.allTouches anyObject];
     if (touch && touch.phase == UITouchPhaseBegan) {
+        self.lga_lastTouchEvent = event;
         self.lga_lastTouchTimestamp = [[NSDate date] timeIntervalSince1970];
     }
 }
 
 #pragma mark - Public
 
+static NSString* const kLastTouchEvent = @"lga_lastTouchEvent";
 static NSString* const kLastTouchTimestamp = @"lga_lastTouchTimestamp";
+
+- (UIEvent*)lga_lastTouchEvent {
+    return objc_getAssociatedObject(self, (__bridge const void *)(kLastTouchEvent));
+}
 
 - (NSTimeInterval)lga_lastTouchTimestamp {
     id value = objc_getAssociatedObject(self, (__bridge const void *)(kLastTouchTimestamp));
@@ -64,6 +70,10 @@ static NSString* const kLastTouchTimestamp = @"lga_lastTouchTimestamp";
 }
 
 #pragma mark - Private
+
+- (void)setLga_lastTouchEvent:(UIEvent *)lga_lastTouchEvent {
+    objc_setAssociatedObject(self, (__bridge const void *)(kLastTouchEvent), lga_lastTouchEvent, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 - (void)setLga_lastTouchTimestamp:(NSTimeInterval)lga_lastTouchTimestamp {
     objc_setAssociatedObject(self, (__bridge const void *)(kLastTouchTimestamp), @(lga_lastTouchTimestamp), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
