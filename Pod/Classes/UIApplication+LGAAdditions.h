@@ -30,7 +30,13 @@
  * The last UIEvent, with at least one touch in its "began" phase, that was sent to the UIApplication.
  * WARNING: as an event cannot be copied, the event is retained by reference, and can thus become stale (its content changes).
  */
-@property (nonatomic, readonly) UIEvent* lga_lastTouchEvent;
+@property (nonatomic, readonly, nullable) UIEvent* lga_lastTouchEvent;
+
+/**
+ * A copy of the reference to lga_lastTouchEvent.allTouches at the time the UIEvent occured.
+ * As UIEvent.allTouches might change with time, this property might hold a reference to UITouch(es) that are no longer valid.
+ */
+@property (nonatomic, readonly, nullable) NSSet<UITouch*>* lga_lastTouches;
 
 /**
  * The last timestamp (UNIX) at which an lga_lastTouchEvent was recorded.
