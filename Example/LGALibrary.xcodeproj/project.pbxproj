@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3251E29F1B6FCCC5006147A0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3251E29E1B6FCCC5006147A0 /* WebKit.framework */; };
 		328A77CE19C9B9B100C3978E /* LGAScrollExampleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 328A77CD19C9B9B100C3978E /* LGAScrollExampleTableViewController.m */; };
-		3291EFE819B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3291EFE719B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m */; };
 		32DD524019B4A36500B5B241 /* LGAMapExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DD523F19B4A36500B5B241 /* LGAMapExampleViewController.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -18,7 +17,6 @@
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* LGAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* LGAAppDelegate.m */; };
 		6003F5A1195388D20070C39A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003F59F195388D20070C39A /* Main.storyboard */; };
-		6003F5A7195388D20070C39A /* LGAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* LGAViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		73B5470BB5CF069DE256124B /* libPods-LGALibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4C9BEBADBDDCD9CFE383C5 /* libPods-LGALibrary.a */; };
 /* End PBXBuildFile section */
@@ -27,8 +25,6 @@
 		3251E29E1B6FCCC5006147A0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		328A77CC19C9B9B100C3978E /* LGAScrollExampleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGAScrollExampleTableViewController.h; sourceTree = "<group>"; };
 		328A77CD19C9B9B100C3978E /* LGAScrollExampleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGAScrollExampleTableViewController.m; sourceTree = "<group>"; };
-		3291EFE619B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGARefreshControlExampleTableViewController.h; sourceTree = "<group>"; };
-		3291EFE719B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGARefreshControlExampleTableViewController.m; sourceTree = "<group>"; };
 		32DD523E19B4A36500B5B241 /* LGAMapExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGAMapExampleViewController.h; sourceTree = "<group>"; };
 		32DD523F19B4A36500B5B241 /* LGAMapExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGAMapExampleViewController.m; sourceTree = "<group>"; };
 		490DD146A86C5496BC0173A6 /* Pods-LGALibrary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGALibrary.release.xcconfig"; path = "Pods/Target Support Files/Pods-LGALibrary/Pods-LGALibrary.release.xcconfig"; sourceTree = "<group>"; };
@@ -44,8 +40,6 @@
 		6003F59C195388D20070C39A /* LGAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGAAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* LGAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGAAppDelegate.m; sourceTree = "<group>"; };
 		6003F5A0195388D20070C39A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* LGAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGAViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* LGAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGAViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		64098E3CF554E6617D4AC9BD /* Pods-LGALibrary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGALibrary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LGALibrary/Pods-LGALibrary.debug.xcconfig"; sourceTree = "<group>"; };
@@ -108,10 +102,6 @@
 				6003F59F195388D20070C39A /* Main.storyboard */,
 				6003F59C195388D20070C39A /* LGAAppDelegate.h */,
 				6003F59D195388D20070C39A /* LGAAppDelegate.m */,
-				6003F5A5195388D20070C39A /* LGAViewController.h */,
-				6003F5A6195388D20070C39A /* LGAViewController.m */,
-				3291EFE619B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.h */,
-				3291EFE719B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m */,
 				32DD523E19B4A36500B5B241 /* LGAMapExampleViewController.h */,
 				32DD523F19B4A36500B5B241 /* LGAMapExampleViewController.m */,
 				328A77CC19C9B9B100C3978E /* LGAScrollExampleTableViewController.h */,
@@ -268,11 +258,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* LGAAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* LGAViewController.m in Sources */,
 				328A77CE19C9B9B100C3978E /* LGAScrollExampleTableViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				32DD524019B4A36500B5B241 /* LGAMapExampleViewController.m in Sources */,
-				3291EFE819B06A8A00BAADCF /* LGARefreshControlExampleTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
