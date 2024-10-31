@@ -68,7 +68,7 @@
 #pragma mark - Private
 
 - (void)selfTapped {
-    CLAuthorizationStatus currentAuthStatus = [CLLocationManager authorizationStatus];
+    CLAuthorizationStatus currentAuthStatus = self.locationManager.authorizationStatus;
     if (currentAuthStatus == kCLAuthorizationStatusDenied || currentAuthStatus == kCLAuthorizationStatusRestricted) {
         UIViewController* viewController = [self.mapView lga_parentViewController];
         if (viewController) {
@@ -94,7 +94,7 @@
 
 #pragma mark - CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
     if (self.waitingForAuth) {
         [self selfTapped];
     }
@@ -106,7 +106,7 @@
  * @return YES if auth request was necessary.
  */
 - (BOOL)requestAuthorizationIfNecessary {
-    CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
+    CLAuthorizationStatus authStatus = self.locationManager.authorizationStatus;
     if (authStatus == kCLAuthorizationStatusAuthorizedAlways) {
         return NO;
     }

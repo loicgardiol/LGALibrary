@@ -41,11 +41,4 @@
  */
 @property (nonatomic, readonly) BOOL lga_forceToucheAvailable;
 
-/**
- * Similar to registerForPreviewingWithDelegate:sourceView:
- * but does nothing if forceTouchSupported is no (returns nil then)
- */
-- (id<UIViewControllerPreviewing> _Nullable)lga_registerForPreviewingIfSupportedWithDelegate:(id<UIViewControllerPreviewingDelegate> _Nonnull)delegate sourceView:(UIView * _Nonnull)sourceView;
-
-
 @end
